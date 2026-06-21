@@ -1,22 +1,32 @@
-const mockWine = {
-  nome: "Brunello di Montalcino",
-  ingredienti: "Uve, Conservanti e antiossidanti: Solfiti",
-  azienda: "Fisar",
-  paese: "Italia",
-  alcol: 13.5,
-  energiaKcal: 85,
-  energiaKJ: 356,
-  carboidrati: 0.3,
-  zuccheri: 0.3,
-};
+import { notFound } from "next/navigation";
+import { getLabelBySlug } from "@/lib/labels";
+import { computeNutrition } from "@/lib/nutrition";
 
 export default async function PublicWinePage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  await params;
-  const wine = mockWine;
+  const { slug } = await params;
+  const label = await getLabelBySlug(slug);
+
+  if (!label) notFound();
+
+  const nutrition = computeNutrition(label);
+  const generale = label.ingredienti.filter((i) => i.category === "generale");
+  const conservanti = label.ingredienti.filter(
+    (i) => i.category === "conservanti"
+  );
+  const ingredientsLine = [
+    generale.map((i) => i.label).join(", "),
+    conservanti.length > 0
+      ? `Conservanti e antiossidanti: ${conservanti
+          .map((i) => i.label)
+          .join(", ")}`
+      : null,
+  ]
+    .filter(Boolean)
+    .join(", ");
 
   return (
     <div className="min-h-screen bg-sand-50 px-6 py-12">
@@ -28,26 +38,29 @@ export default async function PublicWinePage({
         </div>
 
         <h1 className="mt-4 text-xl font-semibold text-sand-900">
-          {wine.nome}
+          {label.nome}
         </h1>
 
-        <Section title="Ingredienti">
-          <p className="text-sm text-sand-700">{wine.ingredienti}</p>
-        </Section>
+        {ingredientsLine && (
+          <Section title="Ingredienti">
+            <p className="text-sm text-sand-700">{ingredientsLine}</p>
+          </Section>
+        )}
 
         <Section title="Valori nutrizionali (per 100ml)">
           <p className="text-sm text-sand-700">
-            Energia: {wine.energiaKcal} kcal / {wine.energiaKJ} kJ
+            Energia: {nutrition.energyKcal} kcal / {nutrition.energyKJ} kJ
           </p>
           <p className="text-sm text-sand-700">
-            Carboidrati: {wine.carboidrati} g, di cui zuccheri: {wine.zuccheri} g
+            Carboidrati: {nutrition.carbsG} g, di cui zuccheri:{" "}
+            {nutrition.sugarG} g
           </p>
-          <p className="text-sm text-sand-700">Alcol: {wine.alcol} %vol</p>
+          <p className="text-sm text-sand-700">Alcol: {label.alcol} %vol</p>
         </Section>
 
         <Section title="Azienda responsabile dei contenuti">
-          <p className="text-sm text-sand-700">{wine.azienda}</p>
-          <p className="text-sm text-sand-700">{wine.paese}</p>
+          <p className="text-sm text-sand-700">{label.azienda}</p>
+          <p className="text-sm text-sand-700">{label.paese}</p>
         </Section>
       </div>
     </div>

@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 
+export { computeNutrition } from "@/lib/nutrition";
+
 export type Ingredient = {
   id: string;
   label: string;
@@ -65,18 +67,4 @@ export function useWizard() {
   const ctx = useContext(WizardContext);
   if (!ctx) throw new Error("useWizard must be used inside WizardProvider");
   return ctx;
-}
-
-export function computeNutrition(data: WizardData) {
-  const alcoholG = data.alcol * 0.789;
-  const sugarG = data.zuccheroResiduo / 10;
-  const carbsG = sugarG;
-  const energyKcal = alcoholG * 7 + carbsG * 4;
-  const energyKJ = energyKcal * 4.184;
-  return {
-    energyKcal: Math.round(energyKcal * 10) / 10,
-    energyKJ: Math.round(energyKJ * 10) / 10,
-    carbsG: Math.round(carbsG * 10) / 10,
-    sugarG: Math.round(sugarG * 10) / 10,
-  };
 }

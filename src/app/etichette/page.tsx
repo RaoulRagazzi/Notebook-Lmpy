@@ -1,10 +1,9 @@
 import Link from "next/link";
+import { listLabels } from "@/lib/labels";
 
-const mockLabels = [
-  { id: "demo-vino", nome: "Brunello di Montalcino", azienda: "Fisar" },
-];
+export default async function EtichetteListPage() {
+  const labels = await listLabels();
 
-export default function EtichetteListPage() {
   return (
     <div className="min-h-screen bg-sand-50 px-6 py-10 sm:px-10">
       <div className="mx-auto max-w-4xl">
@@ -21,31 +20,39 @@ export default function EtichetteListPage() {
         </div>
 
         <div className="mt-8 overflow-hidden rounded-lg border border-sand-200 bg-white">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-sand-100 text-sand-700">
-              <tr>
-                <th className="px-4 py-3 font-medium">Nome</th>
-                <th className="px-4 py-3 font-medium">Azienda</th>
-                <th className="px-4 py-3 font-medium" />
-              </tr>
-            </thead>
-            <tbody>
-              {mockLabels.map((label) => (
-                <tr key={label.id} className="border-t border-sand-200">
-                  <td className="px-4 py-3 text-sand-900">{label.nome}</td>
-                  <td className="px-4 py-3 text-sand-700">{label.azienda}</td>
-                  <td className="px-4 py-3 text-right">
-                    <Link
-                      href={`/v/${label.id}`}
-                      className="text-wine-500 hover:underline"
-                    >
-                      Vedi scheda →
-                    </Link>
-                  </td>
+          {labels.length === 0 ? (
+            <p className="p-6 text-sm text-sand-600">
+              Non hai ancora creato nessuna etichetta.
+            </p>
+          ) : (
+            <table className="w-full text-left text-sm">
+              <thead className="bg-sand-100 text-sand-700">
+                <tr>
+                  <th className="px-4 py-3 font-medium">Nome</th>
+                  <th className="px-4 py-3 font-medium">Azienda</th>
+                  <th className="px-4 py-3 font-medium" />
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {labels.map((label) => (
+                  <tr key={label.id} className="border-t border-sand-200">
+                    <td className="px-4 py-3 text-sand-900">{label.nome}</td>
+                    <td className="px-4 py-3 text-sand-700">
+                      {label.azienda}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <Link
+                        href={`/v/${label.slug}`}
+                        className="text-wine-500 hover:underline"
+                      >
+                        Vedi scheda →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

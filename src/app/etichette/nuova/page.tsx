@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Stepper, { wizardSteps } from "@/components/wizard/Stepper";
 import LabelPreviewPhone from "@/components/wizard/LabelPreviewPhone";
-import { WizardProvider } from "@/components/wizard/WizardContext";
+import { WizardProvider, useWizard } from "@/components/wizard/WizardContext";
 import StepGenerale from "@/components/wizard/steps/StepGenerale";
 import StepNutrizionali from "@/components/wizard/steps/StepNutrizionali";
 import StepIngredienti from "@/components/wizard/steps/StepIngredienti";
 import StepRiciclaggio from "@/components/wizard/steps/StepRiciclaggio";
+import { saveLabel } from "./actions";
 
 const stepComponents = [
   StepGenerale,
@@ -28,9 +29,17 @@ export default function NuovaEtichettaPage() {
 
 function WizardFlow() {
   const router = useRouter();
+  const { data } = useWizard();
   const [step, setStep] = useState(0);
+  const [saving, setSaving] = useState(false);
   const isLast = step === wizardSteps.length - 1;
   const StepComponent = stepComponents[step];
+
+  async function handleFinish() {
+    setSaving(true);
+    const slug = await saveLabel(data);
+    router.push(`/etichette/nuova/fatto?slug=${slug}`);
+  }
 
   return (
     <div className="min-h-screen bg-sand-50 px-6 py-10 sm:px-10">
@@ -77,14 +86,13 @@ function WizardFlow() {
                 )}
                 <button
                   type="button"
+                  disabled={saving}
                   onClick={() =>
-                    isLast
-                      ? router.push("/etichette/nuova/fatto")
-                      : setStep((s) => s + 1)
+                    isLast ? handleFinish() : setStep((s) => s + 1)
                   }
-                  className="flex items-center gap-2 rounded-full bg-olive-500 px-6 py-2 text-sm font-medium text-sand-50 hover:bg-wine-600"
+                  className="flex items-center gap-2 rounded-full bg-olive-500 px-6 py-2 text-sm font-medium text-sand-50 hover:bg-wine-600 disabled:opacity-50"
                 >
-                  {isLast ? "Finitura 🚀" : "Avanti →"}
+                  {isLast ? (saving ? "Salvataggio…" : "Finitura 🚀") : "Avanti →"}
                 </button>
               </div>
             </div>

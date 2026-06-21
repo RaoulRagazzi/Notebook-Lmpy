@@ -1,18 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import QRCode from "qrcode";
 
-export default function EtichettaCreataPage() {
+function EtichettaCreataContent() {
+  const searchParams = useSearchParams();
+  const slug = searchParams.get("slug");
   const [url, setUrl] = useState("");
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    const labelUrl = `${window.location.origin}/v/demo-vino`;
+    if (!slug) return;
+    const labelUrl = `${window.location.origin}/v/${slug}`;
     setUrl(labelUrl);
     QRCode.toDataURL(labelUrl, { width: 240, margin: 1 }).then(setQrDataUrl);
-  }, []);
+  }, [slug]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-sand-50 px-6 py-16 text-center">
@@ -62,6 +66,17 @@ export default function EtichettaCreataPage() {
         </button>
       </div>
 
+      {url && (
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 text-sm text-sand-600 hover:underline"
+        >
+          {url}
+        </a>
+      )}
+
       <Link
         href="/etichette"
         className="mt-10 text-sm font-medium text-wine-500 hover:underline"
@@ -69,5 +84,13 @@ export default function EtichettaCreataPage() {
         Vai alle mie etichette →
       </Link>
     </div>
+  );
+}
+
+export default function EtichettaCreataPage() {
+  return (
+    <Suspense fallback={null}>
+      <EtichettaCreataContent />
+    </Suspense>
   );
 }
