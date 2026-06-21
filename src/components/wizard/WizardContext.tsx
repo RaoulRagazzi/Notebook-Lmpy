@@ -49,8 +49,14 @@ type WizardContextValue = {
 
 const WizardContext = createContext<WizardContextValue | null>(null);
 
-export function WizardProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<WizardData>(defaultData);
+export function WizardProvider({
+  children,
+  initialData,
+}: {
+  children: ReactNode;
+  initialData?: WizardData;
+}) {
+  const [data, setData] = useState<WizardData>(initialData ?? defaultData);
 
   function update(patch: Partial<WizardData>) {
     setData((prev) => ({ ...prev, ...patch }));

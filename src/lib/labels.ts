@@ -10,13 +10,14 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-export async function createLabel(data: WizardData) {
+export async function createLabel(userId: string, data: WizardData) {
   const base = slugify(data.nome) || "vino";
   const suffix = Math.random().toString(36).slice(2, 7);
   const slug = `${base}-${suffix}`;
 
   await prisma.label.create({
     data: {
+      userId,
       slug,
       nome: data.nome,
       alcol: data.alcol,
@@ -33,12 +34,47 @@ export async function createLabel(data: WizardData) {
   return slug;
 }
 
-export async function listLabels() {
-  return prisma.label.findMany({ orderBy: { createdAt: "desc" } });
+export async function updateLabel(userId: string, slug: string, data: WizardData) {
+  await prisma.label.updateMany({
+    where: { slug, userId },
+    data: {
+      nome: data.nome,
+      alcol: data.alcol,
+      acidita: data.acidita,
+      zuccheroResiduo: data.zuccheroResiduo,
+      glicerinaManuale: data.glicerinaManuale,
+      ingredientiJson: JSON.stringify(data.ingredienti),
+      riciclaggio: data.riciclaggio,
+      azienda: data.azienda,
+      paese: data.paese,
+    },
+  });
+}
+
+export async function deleteLabel(userId: string, slug: string) {
+  await prisma.label.deleteMany({ where: { slug, userId } });
+}
+
+export async function listLabels(userId: string) {
+  return prisma.label.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+  });
 }
 
 export async function getLabelBySlug(slug: string) {
   const label = await prisma.label.findUnique({ where: { slug } });
+  if (!label) return null;
+
+  return {
+    ...label,
+    ingredienti: JSON.parse(label.ingredientiJson) as Ingredient[],
+    riciclaggio: label.riciclaggio as RecyclingMode,
+  };
+}
+
+export async function getOwnLabelBySlug(userId: string, slug: string) {
+  const label = await prisma.label.findFirst({ where: { slug, userId } });
   if (!label) return null;
 
   return {

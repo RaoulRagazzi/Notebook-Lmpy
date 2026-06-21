@@ -1,13 +1,12 @@
 "use server";
 
 import { auth } from "@/auth";
-import { createLabel } from "@/lib/labels";
+import { updateLabel } from "@/lib/labels";
 import type { WizardData } from "@/components/wizard/WizardContext";
 
-export async function saveLabel(data: WizardData) {
+export async function saveLabelEdit(slug: string, data: WizardData) {
   const session = await auth();
   if (!session?.user?.id) throw new Error("Non autenticato.");
 
-  const slug = await createLabel(session.user.id, data);
-  return slug;
+  await updateLabel(session.user.id, slug, data);
 }
