@@ -20,18 +20,52 @@ model User {
 }
 
 model Label {
-  id               String   @id @default(cuid())
-  slug             String   @unique
+  id               String     @id @default(cuid())
+  slug             String     @unique
   nome             String
-  alcol            Float    @default(0)
-  acidita          Float    @default(0)
-  zuccheroResiduo  Float    @default(0)
-  glicerinaManuale Boolean  @default(false)
-  ingredientiJson  String   @default("[]")
-  riciclaggio      String   @default("manuale")
-  azienda          String   @default("")
-  paese            String   @default("")
-  createdAt        DateTime @default(now())
+  alcol            Float      @default(0)
+  acidita          Float      @default(0)
+  zuccheroResiduo  Float      @default(0)
+  glicerinaManuale Boolean    @default(false)
+  ingredientiJson  String     @default("[]")
+  riciclaggio      String     @default("manuale")
+  azienda          String     @default("")
+  paese            String     @default("")
+  createdAt        DateTime   @default(now())
   userId           String
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wineStory        WineStory?
+}
+
+model WineStory {
+  id                String   @id @default(cuid())
+  labelId           String   @unique
+  label             Label    @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  annata            String   @default("")
+  denominazione     String   @default("")
+  vitigno           String   @default("")
+  zonaProduzione    String   @default("")
+  vigneto           String   @default("")
+  vinificazione     String   @default("")
+  affinamento       String   @default("")
+  noteDegustazione  String   @default("")
+  temperaturaServizio String @default("")
+  abbinamenti       String   @default("")
+  certificazioni    String   @default("")
+  storiaVino        String   @default("")
+  raccontoCantina   String   @default("")
+  premiJson         String   @default("[]")
+  testoSocialBreve  String   @default("")
+  testoSitoLungo    String   @default("")
+
+  immagineBottiglia String   @default("")
+  immagineEtichetta String   @default("")
+  immagineVigneto   String   @default("")
+  immagineCantina   String   @default("")
+
+  lingua            String   @default("it")
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }

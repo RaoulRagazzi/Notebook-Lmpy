@@ -21,6 +21,12 @@ export default async function EtichetteListPage() {
           </div>
           <div className="flex items-center gap-3">
             <Link
+              href="/studio"
+              className="rounded-full border border-wine-500 px-5 py-2 text-sm font-medium text-wine-500 hover:bg-sand-100"
+            >
+              ✦ Veritas Studio
+            </Link>
+            <Link
               href="/etichette/nuova"
               className="rounded-full bg-olive-500 px-5 py-2 text-sm font-medium text-sand-50 hover:bg-wine-600"
             >
