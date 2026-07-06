@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  /* Palette ispirata ad apple.com: bianco, quasi-nero, grigi e blu */
-  --ink: #1d1d1f;
-  --ink-2: #000000;
-  --paper: #ffffff;
-  --paper-2: #f5f5f7;
-  --paper-3: #f5f5f7;
-  --testo: #1d1d1f;
-  --muted: #6e6e73;
-  --oro: #0071e3;
-  --oro-chiara: #2997ff;
-  --bordeaux: #0071e3;
-  --linea: #d2d2d7;
+  /* Palette fresca: verde acqua, petrolio profondo e carta calda */
+  --ink: #13312b;
+  --ink-2: #0c2622;
+  --paper: #fbfaf7;
+  --paper-2: #eef4ef;
+  --paper-3: #eef4ef;
+  --testo: #27332f;
+  --muted: #64726b;
+  --oro: #0d9488;
+  --oro-chiara: #2dd4bf;
+  --bordeaux: #0d9488;
+  --linea: #d9e2da;
 
   --background: var(--paper);
   --foreground: var(--testo);
@@ -32,8 +32,7 @@
   --color-orochiara: var(--oro-chiara);
   --color-bordeaux: var(--bordeaux);
   --color-linea: var(--linea);
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: var(--font-garamond), Garamond, "EB Garamond", Georgia, serif;
   --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
     "Segoe UI", Roboto, Arial, sans-serif;
 }
@@ -43,13 +42,13 @@ body {
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
     "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: 1.3125rem; /* 21px, come i paragrafi di apple.com */
+  font-size: 1.3125rem; /* 21px */
   line-height: 1.5;
   letter-spacing: 0.011em;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Anteprima del capitolo impaginato */
+/* Anteprima del capitolo impaginato, come una pagina di libro */
 .pagina-libro p {
   margin: 0 0 1em;
 }

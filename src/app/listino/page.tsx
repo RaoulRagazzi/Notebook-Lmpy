@@ -17,7 +17,7 @@ export default async function ListinoPage() {
       <SiteHeader />
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24 pt-16">
         <p className="text-center text-lg font-semibold text-oro">Listino</p>
-        <h1 className="mx-auto mt-2 max-w-3xl text-balance text-center text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
+        <h1 className="font-display mx-auto mt-2 max-w-3xl text-balance text-center text-5xl font-semibold text-ink sm:text-6xl">
           Continua il tuo libro.
         </h1>
         <p className="mx-auto mt-6 max-w-3xl text-center text-2xl text-muted">
@@ -36,7 +36,7 @@ export default async function ListinoPage() {
               }`}
             >
               <h2
-                className={`text-3xl font-semibold tracking-tight ${
+                className={`font-display text-3xl font-semibold ${
                   f.inEvidenza ? "text-white" : "text-ink"
                 }`}
               >
@@ -49,7 +49,7 @@ export default async function ListinoPage() {
               >
                 {f.sottotitolo}
               </p>
-              <p className="mt-6 text-5xl font-semibold tracking-tight tabular-nums">
+              <p className="font-display mt-6 text-5xl font-semibold tabular-nums">
                 {f.prezzo.toLocaleString("it-IT")}&nbsp;€
               </p>
               <p
@@ -77,7 +77,7 @@ export default async function ListinoPage() {
                 <form action={creaOrdine.bind(null, f.id)} className="mt-8">
                   <button
                     type="submit"
-                    className="w-full cursor-pointer rounded-full bg-oro px-6 py-3.5 text-lg font-medium text-white hover:bg-[#0077ed]"
+                    className="w-full cursor-pointer rounded-full bg-oro px-6 py-3.5 text-lg font-medium text-white hover:bg-[#0b7c72]"
                   >
                     Scegli questa formula
                   </button>
@@ -85,7 +85,7 @@ export default async function ListinoPage() {
               ) : (
                 <Link
                   href="/registrati"
-                  className="mt-8 block rounded-full bg-oro px-6 py-3.5 text-center text-lg font-medium text-white hover:bg-[#0077ed]"
+                  className="mt-8 block rounded-full bg-oro px-6 py-3.5 text-center text-lg font-medium text-white hover:bg-[#0b7c72]"
                 >
                   Registrati per iniziare
                 </Link>

@@ -43,7 +43,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
   return (
     <section className="mt-12 rounded-[28px] bg-paper2 p-2">
       <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-5">
-        <h2 className="text-3xl font-semibold tracking-tight text-ink">
+        <h2 className="font-display text-3xl font-semibold text-ink">
           Capitolo primo <span className="text-oro">· in omaggio</span>
         </h2>
         <div className="flex rounded-full bg-white p-1 text-base font-medium">
@@ -73,11 +73,11 @@ export default function EditorCapitolo({ iniziale }: Props) {
       {anteprima ? (
         <div className="rounded-[22px] bg-white px-6 py-12 sm:px-16">
           <p className="text-center text-lg font-semibold text-oro">{genere}</p>
-          <h3 className="mx-auto mt-2 mb-10 max-w-2xl text-balance text-center text-4xl font-semibold tracking-tight text-ink">
+          <h3 className="mx-auto mt-2 mb-10 font-display max-w-2xl text-balance text-center text-4xl font-semibold text-ink">
             {titolo.trim() || "Senza titolo"}
           </h3>
           {paragrafi.length > 0 ? (
-            <div className="pagina-libro mx-auto max-w-2xl text-xl leading-relaxed text-testo">
+            <div className="pagina-libro font-display mx-auto max-w-2xl text-[22px] leading-relaxed text-testo">
               {paragrafi.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
@@ -162,7 +162,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
                   type="button"
                   onClick={handleSalva}
                   disabled={saving}
-                  className="cursor-pointer rounded-full bg-oro px-7 py-3 text-lg font-medium text-white hover:bg-[#0077ed] disabled:opacity-50"
+                  className="cursor-pointer rounded-full bg-oro px-7 py-3 text-lg font-medium text-white hover:bg-[#0b7c72] disabled:opacity-50"
                 >
                   {saving ? "Salvataggio…" : "Salva capitolo"}
                 </button>

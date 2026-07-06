@@ -24,7 +24,7 @@ export default async function StudioPage() {
       <SiteHeader />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-24 pt-14">
         <p className="text-lg font-semibold text-oro">Il tuo Studio</p>
-        <h1 className="mt-1 text-5xl font-semibold tracking-tight text-ink">
+        <h1 className="font-display mt-1 text-5xl font-semibold text-ink">
           Bentornato{session.user.name ? `, ${session.user.name}` : ""}.
         </h1>
         <p className="mt-5 max-w-2xl text-xl text-muted">
@@ -44,7 +44,7 @@ export default async function StudioPage() {
                   className="flex flex-wrap items-center justify-between gap-3 rounded-[28px] bg-paper2 px-8 py-6"
                 >
                   <div>
-                    <p className="text-2xl font-semibold tracking-tight text-ink">
+                    <p className="font-display text-2xl font-semibold text-ink">
                       Formula {f?.nome ?? o.formula} ·{" "}
                       <span className="tabular-nums">
                         {o.prezzo.toLocaleString("it-IT")} €
@@ -77,8 +77,8 @@ export default async function StudioPage() {
         />
 
         {ordini.length === 0 && (
-          <section className="mt-14 rounded-[28px] bg-black px-8 py-14 text-center text-white">
-            <h2 className="text-balance text-4xl font-semibold tracking-tight">
+          <section className="mt-14 rounded-[28px] bg-ink2 px-8 py-14 text-center text-white">
+            <h2 className="font-display text-balance text-4xl font-semibold">
               Ti piace com&apos;è cominciata?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-xl text-white/75">
@@ -88,7 +88,7 @@ export default async function StudioPage() {
             </p>
             <Link
               href="/listino"
-              className="mt-8 inline-block rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0077ed]"
+              className="mt-8 inline-block rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0b7c72]"
             >
               Continua il tuo libro&nbsp;›
             </Link>

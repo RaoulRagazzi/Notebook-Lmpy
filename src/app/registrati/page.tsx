@@ -47,7 +47,7 @@ export default function RegistratiPage() {
 
         {credenziali ? (
           <>
-            <h1 className="mt-2 text-center text-4xl font-semibold tracking-tight text-ink">
+            <h1 className="mt-2 font-display text-center text-4xl font-semibold text-ink">
               Benvenuto{nome ? `, ${nome.trim()}` : ""}.
             </h1>
             <p className="mt-4 text-center text-lg text-muted">
@@ -85,14 +85,14 @@ export default function RegistratiPage() {
                 router.push("/studio");
                 router.refresh();
               }}
-              className="mt-8 w-full cursor-pointer rounded-full bg-oro px-6 py-4 text-xl font-medium text-white hover:bg-[#0077ed]"
+              className="mt-8 w-full cursor-pointer rounded-full bg-oro px-6 py-4 text-xl font-medium text-white hover:bg-[#0b7c72]"
             >
               Entra nel tuo Studio
             </button>
           </>
         ) : (
           <>
-            <h1 className="mt-2 text-center text-4xl font-semibold tracking-tight text-ink">
+            <h1 className="mt-2 font-display text-center text-4xl font-semibold text-ink">
               Crea il tuo account
             </h1>
             <p className="mt-4 text-center text-lg text-muted">
@@ -133,7 +133,7 @@ export default function RegistratiPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full cursor-pointer rounded-full bg-oro px-6 py-4 text-xl font-medium text-white hover:bg-[#0077ed] disabled:opacity-50"
+                className="w-full cursor-pointer rounded-full bg-oro px-6 py-4 text-xl font-medium text-white hover:bg-[#0b7c72] disabled:opacity-50"
               >
                 {loading ? "Creazione…" : "Registrati gratis"}
               </button>

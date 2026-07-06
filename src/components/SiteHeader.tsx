@@ -5,7 +5,7 @@ export default async function SiteHeader() {
   const session = await auth();
 
   return (
-    <nav className="sticky top-0 z-10 bg-[#161617]/95 text-white backdrop-blur-md">
+    <nav className="sticky top-0 z-10 bg-[#0d1f1c]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-6 py-3.5">
         <Link href="/" className="text-xl font-semibold tracking-tight">
           Splendoria
@@ -43,7 +43,7 @@ export default async function SiteHeader() {
               </Link>
               <Link
                 href="/registrati"
-                className="rounded-full bg-oro px-4 py-1.5 font-medium text-white hover:bg-[#0077ed]"
+                className="rounded-full bg-oro px-4 py-1.5 font-medium text-white hover:bg-[#0b7c72]"
               >
                 Inizia gratis
               </Link>

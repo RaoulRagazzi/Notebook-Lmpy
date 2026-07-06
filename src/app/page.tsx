@@ -84,7 +84,7 @@ function SectionHeading({ label, title }: { label: string; title: string }) {
   return (
     <>
       <p className="text-center text-lg font-semibold text-oro">{label}</p>
-      <h2 className="mx-auto mt-2 mb-14 max-w-3xl text-balance text-center text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
+      <h2 className="font-display mx-auto mt-2 mb-14 max-w-3xl text-balance text-center text-5xl font-semibold text-ink sm:text-6xl">
         {title}
       </h2>
     </>
@@ -97,14 +97,14 @@ export default function Home() {
       <SiteHeader />
 
       {/* Hero */}
-      <header className="bg-black px-6 pb-28 pt-24 text-center text-white">
+      <header className="bg-ink2 px-6 pb-28 pt-24 text-center text-white">
         <p className="text-xl font-semibold text-orochiara">
           Ogni vita merita un romanzo
         </p>
-        <h1 className="mx-auto mt-4 max-w-4xl text-balance text-7xl font-semibold tracking-tight sm:text-8xl">
+        <h1 className="font-display mx-auto mt-4 max-w-4xl text-balance text-7xl font-semibold sm:text-8xl">
           Splendoria
         </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-balance text-3xl font-medium text-[#86868b] sm:text-4xl">
+        <p className="font-display mx-auto mt-5 max-w-2xl text-balance text-3xl italic text-[#a8c3b8] sm:text-4xl">
           La tua vita in un romanzo.
         </p>
         <p className="mx-auto mt-7 max-w-2xl text-balance text-2xl text-white/85">
@@ -114,7 +114,7 @@ export default function Home() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
           <Link
             href="/registrati"
-            className="rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0077ed]"
+            className="rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0b7c72]"
           >
             Scrivi il primo capitolo gratis
           </Link>
@@ -186,7 +186,7 @@ export default function Home() {
                 }`}
               >
                 <h3
-                  className={`text-3xl font-semibold tracking-tight ${
+                  className={`font-display text-3xl font-semibold ${
                     f.inEvidenza ? "text-white" : "text-ink"
                   }`}
                 >
@@ -199,7 +199,7 @@ export default function Home() {
                 >
                   {f.sottotitolo}
                 </p>
-                <p className="mt-6 text-5xl font-semibold tracking-tight tabular-nums">
+                <p className="font-display mt-6 text-5xl font-semibold tabular-nums">
                   {f.prezzo.toLocaleString("it-IT")}&nbsp;€
                 </p>
                 <p
@@ -227,8 +227,8 @@ export default function Home() {
                   href="/listino"
                   className={`mt-8 rounded-full px-6 py-3.5 text-center text-lg font-medium ${
                     f.inEvidenza
-                      ? "bg-oro text-white hover:bg-[#0077ed]"
-                      : "bg-oro text-white hover:bg-[#0077ed]"
+                      ? "bg-oro text-white hover:bg-[#0b7c72]"
+                      : "bg-oro text-white hover:bg-[#0b7c72]"
                   }`}
                 >
                   Scegli {f.nome.split(" ·")[0]}
@@ -258,8 +258,8 @@ export default function Home() {
         </section>
 
         {/* Scuola Holden */}
-        <aside className="bg-black px-6 py-24 text-center text-white">
-          <p className="mx-auto max-w-4xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+        <aside className="bg-ink2 px-6 py-24 text-center text-white">
+          <p className="font-display mx-auto max-w-4xl text-balance text-3xl font-semibold sm:text-4xl">
             Alcuni romanzi sono scritti dagli scrittori della Scuola Holden, la scuola
             di storytelling fondata a Torino da Alessandro Baricco insieme a Carlo
             Feltrinelli, Oscar Farinetti e Andrea Guerra.
@@ -275,7 +275,7 @@ export default function Home() {
           <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
             {VOCI.map((v) => (
               <article key={v.autore} className="rounded-[28px] bg-paper2 p-8">
-                <blockquote className="text-xl leading-relaxed text-testo">
+                <blockquote className="font-display text-2xl leading-relaxed text-testo">
                   “{v.testo}”
                 </blockquote>
                 <p className="mt-6 text-lg">
@@ -289,7 +289,7 @@ export default function Home() {
 
         {/* CTA finale */}
         <section className="bg-paper2 px-6 py-24 text-center">
-          <h2 className="mx-auto max-w-3xl text-balance text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
+          <h2 className="font-display mx-auto max-w-3xl text-balance text-5xl font-semibold text-ink sm:text-6xl">
             La tua storia comincia qui.
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-balance text-2xl text-muted">
@@ -298,7 +298,7 @@ export default function Home() {
           </p>
           <Link
             href="/registrati"
-            className="mt-10 inline-block rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0077ed]"
+            className="mt-10 inline-block rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0b7c72]"
           >
             Inizia gratis
           </Link>

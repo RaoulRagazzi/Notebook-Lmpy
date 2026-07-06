@@ -30,7 +30,7 @@ export default function AccediPage() {
     <div className="flex min-h-screen items-center justify-center bg-paper2 px-6 py-14">
       <div className="w-full max-w-lg rounded-[28px] bg-white p-10 shadow-sm">
         <p className="text-center text-lg font-semibold text-oro">Splendoria</p>
-        <h1 className="mt-2 text-center text-4xl font-semibold tracking-tight text-ink">
+        <h1 className="mt-2 font-display text-center text-4xl font-semibold text-ink">
           Accedi
         </h1>
         <p className="mt-4 text-center text-lg text-muted">
@@ -70,7 +70,7 @@ export default function AccediPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full cursor-pointer rounded-full bg-oro px-6 py-4 text-xl font-medium text-white hover:bg-[#0077ed] disabled:opacity-50"
+            className="w-full cursor-pointer rounded-full bg-oro px-6 py-4 text-xl font-medium text-white hover:bg-[#0b7c72] disabled:opacity-50"
           >
             {loading ? "Accesso…" : "Accedi"}
           </button>
