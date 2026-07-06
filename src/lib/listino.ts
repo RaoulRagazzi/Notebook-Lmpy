@@ -1,7 +1,7 @@
 // Listino Splendoria — prezzi in euro.
 // Aggiornare qui le cifre: tutto il sito legge da questo file.
 
-export type FormulaId = "GOLD" | "PREMIUM_SHORT" | "PREMIUM_FULL" | "CORPORATE";
+export type FormulaId = "GOLD" | "PREMIUM_SHORT" | "CORPORATE";
 
 export type Formula = {
   id: FormulaId;
@@ -39,21 +39,6 @@ export const FORMULE: Formula[] = [
     dettagli: [
       "Call di 60 minuti su temi, aneddoti e messaggio",
       "4 call di scrittura da un'ora",
-      "Copertina personalizzata, formato su richiesta",
-      "Prime 5 copie comprese, consegna in 10 giorni",
-      "Marcatura e deposito dell'opera",
-    ],
-  },
-  {
-    id: "PREMIUM_FULL",
-    nome: "Premium · Biografia completa",
-    sottotitolo: "La tua vita intera, anche romanzata",
-    prezzo: 3000,
-    pagine: "250 pagine · 200.000 battute",
-    dettagli: [
-      "Call di 60 minuti su temi, aneddoti e messaggio",
-      "5 call di scrittura da un'ora",
-      "Biografia completa, anche in forma di romanzo",
       "Copertina personalizzata, formato su richiesta",
       "Prime 5 copie comprese, consegna in 10 giorni",
       "Marcatura e deposito dell'opera",

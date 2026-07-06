@@ -5,28 +5,24 @@ import { FORMULE } from "@/lib/listino";
 
 const PASSI = [
   {
-    n: "Primo",
     titolo: "Registrati",
     testo:
       "Crea il tuo account gratuito: ricevi subito le tue credenziali e uno Studio di scrittura tutto tuo.",
   },
   {
-    n: "Secondo",
     titolo: "Scrivi il primo capitolo",
     testo:
       "Racconta l'inizio della tua storia: il primo capitolo, fino a sei pagine, è in omaggio. Senza impegno.",
   },
   {
-    n: "Terzo",
     titolo: "Scegli la formula",
     testo:
-      "Quando sei pronto, scegli la formula del listino più adatta: un ghostwriter professionista completa il tuo libro.",
+      "Quando sei pronto, scegli la formula più adatta: un ghostwriter professionista completa il tuo libro.",
   },
   {
-    n: "Quarto",
     titolo: "Ricevi il tuo libro",
     testo:
-      "Stampa in brossura con le prime 5 copie incluse, consegna entro 10 giorni e deposito dell'opera a tutela dei diritti d'autore.",
+      "Stampa con le prime 5 copie incluse, consegna entro 10 giorni e deposito dell'opera a tutela dei diritti d'autore.",
   },
 ];
 
@@ -34,32 +30,32 @@ const SERVIZI = [
   {
     titolo: "Tutor dedicato",
     testo:
-      "In ogni fase del progetto avrai al tuo fianco un tutor esperto, pronto a rispondere alle tue domande e a guidarti lungo il cammino della scrittura.",
+      "In ogni fase del progetto avrai al tuo fianco un tutor esperto, pronto a guidarti lungo il cammino della scrittura.",
   },
   {
     titolo: "Colloqui individuali",
     testo:
-      "Conversazioni riservate per raccogliere informazioni e materiali essenziali, così che la tua storia si distingua davvero da tutte le altre.",
+      "Conversazioni riservate per raccogliere informazioni e materiali, così che la tua storia si distingua da tutte le altre.",
   },
   {
     titolo: "Copywriting",
     testo:
-      "Il nostro team lavora a stretto contatto con te per far emergere i punti chiave del tuo messaggio e coinvolgere emotivamente chi legge.",
+      "Il nostro team lavora con te per far emergere i punti chiave del tuo messaggio e coinvolgere emotivamente chi legge.",
   },
   {
     titolo: "Grafica professionale",
     testo:
-      "Designer esperti curano impaginazione e copertina, con un design armonioso e coerente con la tua personalità o con l'immagine della tua azienda.",
+      "Designer esperti curano impaginazione e copertina, con un design coerente con la tua personalità o la tua azienda.",
   },
   {
     titolo: "Versione digitale",
     testo:
-      "Insieme al libro stampato ricevi una versione digitale e sfogliabile, da condividere con facilità con amici, familiari e lettori.",
+      "Insieme al libro stampato ricevi una versione digitale e sfogliabile, da condividere con amici, familiari e lettori.",
   },
   {
     titolo: "Stampa e spedizione",
     testo:
-      "Tempi di realizzazione rapidi e puntuali: le prime 5 copie stampate sono comprese, con consegna entro 10 giorni dall'approvazione della bozza.",
+      "Tempi rapidi e puntuali: le prime 5 copie sono comprese, con consegna entro 10 giorni dall'approvazione della bozza.",
   },
 ];
 
@@ -78,22 +74,19 @@ const VOCI = [
   },
   {
     testo:
-      "Ho trovato un team di persone serie e motivate, con la mia stessa passione e i miei stessi ideali. Il libro che mi hanno consegnato è stato addirittura migliore di quanto mi aspettassi.",
+      "Ho trovato un team di persone serie e motivate, con la mia stessa passione. Il libro che mi hanno consegnato è stato addirittura migliore di quanto mi aspettassi.",
     autore: "Giorgia",
     ruolo: "Manager d'azienda",
   },
 ];
 
-function ChapterHeading({ label, title }: { label: string; title: string }) {
+function SectionHeading({ label, title }: { label: string; title: string }) {
   return (
     <>
-      <p className="text-center font-sans text-[0.72rem] uppercase tracking-[0.26em] text-oro">
-        {label}
-      </p>
-      <h2 className="mt-2 text-balance text-center font-display text-3xl font-medium text-ink sm:text-4xl">
+      <p className="text-center text-lg font-semibold text-oro">{label}</p>
+      <h2 className="mx-auto mt-2 mb-14 max-w-3xl text-balance text-center text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
         {title}
       </h2>
-      <div className="filetto" aria-hidden="true" />
     </>
   );
 }
@@ -103,214 +96,212 @@ export default function Home() {
     <>
       <SiteHeader />
 
-      {/* Copertina */}
-      <header className="bg-[radial-gradient(120%_90%_at_50%_0%,#262838_0%,#191a24_60%)] px-6 pb-20 pt-16 text-paper">
-        <div className="mx-auto max-w-3xl border border-orochiara/75 px-8 py-16 text-center outline outline-1 outline-offset-[7px] outline-orochiara/35">
-          <p className="font-sans text-[0.72rem] uppercase tracking-[0.3em] text-orochiara">
-            Ogni vita merita un romanzo
-          </p>
-          <h1 className="mt-5 text-balance font-display text-5xl font-medium uppercase tracking-[0.14em] text-orochiara sm:text-7xl">
-            Splendoria
-          </h1>
-          <p className="mt-2 font-display text-2xl italic">La tua vita in un romanzo.</p>
-          <span className="my-6 block text-xl text-orochiara" aria-hidden="true">
-            ❦
-          </span>
-          <p className="mx-auto max-w-xl text-balance text-paper/80">
-            Il servizio di ghostwriting che trasforma la tua storia — o quella di chi ami —
-            in un libro vero, scritto da professionisti della scrittura.
-          </p>
-          <p className="mx-auto mt-3 max-w-xl text-balance text-paper/80">
-            Registrati e scrivi subito il tuo primo capitolo:{" "}
-            <em className="text-orochiara">fino a sei pagine, gratis.</em>
-          </p>
+      {/* Hero */}
+      <header className="bg-black px-6 pb-28 pt-24 text-center text-white">
+        <p className="text-xl font-semibold text-orochiara">
+          Ogni vita merita un romanzo
+        </p>
+        <h1 className="mx-auto mt-4 max-w-4xl text-balance text-7xl font-semibold tracking-tight sm:text-8xl">
+          Splendoria
+        </h1>
+        <p className="mx-auto mt-5 max-w-2xl text-balance text-3xl font-medium text-[#86868b] sm:text-4xl">
+          La tua vita in un romanzo.
+        </p>
+        <p className="mx-auto mt-7 max-w-2xl text-balance text-2xl text-white/85">
+          Il servizio di ghostwriting che trasforma la tua storia — o quella di chi
+          ami — in un libro vero, scritto da professionisti.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
           <Link
             href="/registrati"
-            className="mt-9 inline-block bg-orochiara px-8 py-3.5 font-sans text-[0.78rem] uppercase tracking-[0.18em] text-ink hover:bg-[#e6cd88]"
+            className="rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0077ed]"
           >
-            Scrivi il tuo primo capitolo gratis
+            Scrivi il primo capitolo gratis
           </Link>
-          <p className="mt-12 font-sans text-[0.68rem] uppercase tracking-[0.22em] text-paper/50">
-            già Fabulis Vitae · Merano, Italia
-          </p>
+          <Link
+            href="#come-funziona"
+            className="text-xl font-medium text-orochiara hover:underline"
+          >
+            Scopri come funziona&nbsp;›
+          </Link>
         </div>
+        <p className="mt-16 text-lg text-white/50">
+          già Fabulis Vitae · Merano, Italia
+        </p>
       </header>
 
       <main>
-        {/* Capitolo I — La storia */}
-        <section className="mx-auto max-w-5xl px-6 pb-4 pt-18" id="storia">
-          <ChapterHeading label="Capitolo I" title="La storia" />
-          <p className="mx-auto mb-9 max-w-xl text-balance text-center font-display text-xl italic leading-relaxed text-ink">
-            Esistono donne e uomini che stanno vivendo vite straordinarie. Storie che è un
-            peccato dimenticare.
-          </p>
-          <div className="mx-auto max-w-2xl space-y-4">
-            <p className="incipit">
+        {/* La storia */}
+        <section className="bg-paper2 px-6 py-24" id="storia">
+          <SectionHeading label="La storia" title="Storie che è un peccato dimenticare." />
+          <div className="mx-auto max-w-3xl space-y-6 text-2xl leading-relaxed text-testo">
+            <p>
               In un angolo di un bar, in un incontro destinato a cambiare il corso delle
               cose, tre menti creative — ognuna con il proprio stile e mestiere —
               condividevano storie e ispirazioni. Alzarono i bicchieri per brindare a una
-              nuova alleanza: spiriti affini, intrecciati da un amore comune per la
-              scrittura, che fosse romanzo, prosa o poesia. Da quel brindisi è nata
-              Splendoria.
+              nuova alleanza: spiriti affini, uniti da un amore comune per la scrittura.
+              Da quel brindisi è nata Splendoria.
             </p>
             <p>
               Hai mai pensato che la tua storia potrebbe essere raccontata in un libro, o
               diventare la trama di un film? Con Splendoria è possibile: sia in forma
               pubblica che anonima, la tua biografia — o una parte romanzata di essa —
-              diventa un libro vero, da consegnare ad amici, figli e nipoti. Per rimanere,
-              a futura memoria, vivi per sempre.
+              diventa un libro vero, da consegnare ad amici, figli e nipoti.{" "}
+              <span className="font-semibold text-ink">
+                Per rimanere, a futura memoria, vivi per sempre.
+              </span>
             </p>
           </div>
         </section>
 
-        {/* Capitolo II — Come funziona */}
-        <section className="mx-auto max-w-5xl px-6 pb-4 pt-18" id="come-funziona">
-          <ChapterHeading label="Capitolo II" title="Come funziona" />
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {PASSI.map((p) => (
-              <div key={p.titolo}>
-                <span className="block font-display italic text-oro">{p.n}</span>
-                <h3 className="mt-1 font-display text-xl font-medium text-ink">
+        {/* Come funziona */}
+        <section className="px-6 py-24" id="come-funziona">
+          <SectionHeading label="Come funziona" title="Quattro passi. Un libro vero." />
+          <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {PASSI.map((p, i) => (
+              <div key={p.titolo} className="rounded-[28px] bg-paper2 p-8">
+                <span className="text-4xl font-semibold text-oro">{i + 1}</span>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
                   {p.titolo}
                 </h3>
-                <p className="mt-2 text-[0.95rem]">{p.testo}</p>
+                <p className="mt-3 text-lg text-muted">{p.testo}</p>
               </div>
             ))}
           </div>
-          <p className="mt-12 text-center font-display text-lg italic text-bordeaux">
-            <span className="mb-2 block font-sans text-[0.68rem] not-italic uppercase tracking-[0.22em] text-muted">
-              Scegli il genere
-            </span>
-            Autobiografia <span className="px-2 not-italic text-oro">·</span> Memoriale{" "}
-            <span className="px-2 not-italic text-oro">·</span> Ritratto{" "}
-            <span className="px-2 not-italic text-oro">·</span> Giallo{" "}
-            <span className="px-2 not-italic text-oro">·</span> Thriller{" "}
-            <span className="px-2 not-italic text-oro">·</span> Romanzo
+          <p className="mx-auto mt-14 max-w-3xl text-center text-2xl text-muted">
+            <span className="font-semibold text-ink">Scegli il genere.</span>{" "}
+            Autobiografia, memoriale, ritratto, giallo, thriller o romanzo.
           </p>
         </section>
 
-        {/* Capitolo III — Le formule */}
-        <section className="mx-auto max-w-5xl px-6 pb-4 pt-18" id="formule">
-          <ChapterHeading label="Capitolo III" title="Le formule" />
-          <div className="grid items-stretch gap-5 md:grid-cols-2">
+        {/* Le formule */}
+        <section className="bg-paper2 px-6 py-24" id="formule">
+          <SectionHeading label="Listino" title="Scegli la tua formula." />
+          <div className="mx-auto grid max-w-6xl items-stretch gap-6 lg:grid-cols-3">
             {FORMULE.map((f) => (
               <article
                 key={f.id}
-                className={
-                  f.inEvidenza
-                    ? "flex flex-col bg-ink p-7 text-paper"
-                    : "flex flex-col border border-linea bg-paper3 p-7"
-                }
+                className={`flex flex-col rounded-[28px] p-9 ${
+                  f.inEvidenza ? "bg-ink text-white" : "bg-white"
+                }`}
               >
                 <h3
-                  className={`font-display text-2xl font-medium ${
-                    f.inEvidenza ? "text-orochiara" : "text-ink"
+                  className={`text-3xl font-semibold tracking-tight ${
+                    f.inEvidenza ? "text-white" : "text-ink"
                   }`}
                 >
                   {f.nome}
                 </h3>
                 <p
-                  className={`font-display italic ${
-                    f.inEvidenza ? "text-paper/75" : "text-bordeaux"
+                  className={`mt-1 text-lg ${
+                    f.inEvidenza ? "text-white/70" : "text-muted"
                   }`}
                 >
                   {f.sottotitolo}
                 </p>
-                <p className="mt-4 font-display text-3xl tabular-nums">
-                  {f.prezzo.toLocaleString("it-IT")}&nbsp;€{" "}
-                  <small
-                    className={`font-sans text-sm tracking-wide ${
-                      f.inEvidenza ? "text-paper/60" : "text-muted"
-                    }`}
-                  >
-                    · {f.pagine}
-                  </small>
+                <p className="mt-6 text-5xl font-semibold tracking-tight tabular-nums">
+                  {f.prezzo.toLocaleString("it-IT")}&nbsp;€
                 </p>
-                <ul className="mt-4 flex-1">
+                <p
+                  className={`mt-1 text-lg ${
+                    f.inEvidenza ? "text-white/70" : "text-muted"
+                  }`}
+                >
+                  {f.pagine}
+                </p>
+                <ul className="mt-6 flex-1 space-y-0">
                   {f.dettagli.map((d) => (
                     <li
                       key={d}
-                      className={`border-t py-2 pl-5 text-[0.93rem] relative before:absolute before:left-0 before:text-oro before:content-['—'] ${
-                        f.inEvidenza ? "border-paper/15" : "border-linea"
+                      className={`border-t py-3 text-lg ${
+                        f.inEvidenza
+                          ? "border-white/15 text-white/85"
+                          : "border-linea text-testo"
                       }`}
                     >
                       {d}
                     </li>
                   ))}
                 </ul>
+                <Link
+                  href="/listino"
+                  className={`mt-8 rounded-full px-6 py-3.5 text-center text-lg font-medium ${
+                    f.inEvidenza
+                      ? "bg-oro text-white hover:bg-[#0077ed]"
+                      : "bg-oro text-white hover:bg-[#0077ed]"
+                  }`}
+                >
+                  Scegli {f.nome.split(" ·")[0]}
+                </Link>
               </article>
             ))}
           </div>
-          <p className="mx-auto mt-9 max-w-2xl text-center text-sm text-muted">
+          <p className="mx-auto mt-12 max-w-3xl text-center text-lg text-muted">
             Ogni progetto è seguito da un tutor dedicato, dalla prima intervista alla
             consegna. Marcatura e deposito dell&apos;opera inclusi in tutte le formule.
           </p>
         </section>
 
-        {/* Capitolo IV — Sempre incluso */}
-        <section className="mx-auto max-w-5xl px-6 pb-4 pt-18" id="servizi">
-          <ChapterHeading label="Capitolo IV" title="Sempre incluso" />
-          <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Sempre incluso */}
+        <section className="px-6 py-24" id="servizi">
+          <SectionHeading label="Sempre incluso" title="Tutto quello che serve. Di serie." />
+          <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {SERVIZI.map((s) => (
-              <div key={s.titolo}>
-                <h3 className="font-sans text-[0.78rem] uppercase tracking-[0.18em] text-bordeaux">
+              <div key={s.titolo} className="rounded-[28px] bg-paper2 p-8">
+                <h3 className="text-2xl font-semibold tracking-tight text-ink">
                   {s.titolo}
                 </h3>
-                <p className="mt-2 text-[0.95rem]">{s.testo}</p>
+                <p className="mt-3 text-lg text-muted">{s.testo}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Fascia Scuola Holden */}
-        <aside className="mt-18 bg-ink2 px-6 py-14 text-center text-paper">
-          <p className="mx-auto max-w-3xl text-balance font-display text-xl italic leading-relaxed">
-            «Alcuni romanzi sono scritti dagli scrittori della Scuola Holden, la scuola di
-            storytelling fondata a Torino da Alessandro Baricco insieme a Carlo
-            Feltrinelli, Oscar Farinetti e Andrea Guerra.»
+        {/* Scuola Holden */}
+        <aside className="bg-black px-6 py-24 text-center text-white">
+          <p className="mx-auto max-w-4xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+            Alcuni romanzi sono scritti dagli scrittori della Scuola Holden, la scuola
+            di storytelling fondata a Torino da Alessandro Baricco insieme a Carlo
+            Feltrinelli, Oscar Farinetti e Andrea Guerra.
           </p>
-          <span className="mt-5 block font-sans text-[0.78rem] uppercase tracking-[0.14em] text-orochiara">
-            Le storie più avvincenti, raccontate da chi le sa scrivere
-          </span>
+          <p className="mt-6 text-xl text-orochiara">
+            Le storie più avvincenti, raccontate da chi le sa scrivere.
+          </p>
         </aside>
 
-        {/* Capitolo V — Dicono di noi */}
-        <section className="mx-auto max-w-5xl px-6 pb-4 pt-18" id="voci">
-          <ChapterHeading label="Capitolo V" title="Dicono di noi" />
-          <div className="grid gap-5 md:grid-cols-3">
+        {/* Dicono di noi */}
+        <section className="px-6 py-24" id="voci">
+          <SectionHeading label="Dicono di noi" title="Vite diventate libri." />
+          <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
             {VOCI.map((v) => (
-              <article key={v.autore} className="border-t-2 border-oro bg-paper2 p-7">
-                <blockquote className="font-display italic leading-relaxed text-ink before:text-lg before:text-oro before:content-['“']">
-                  {v.testo}
+              <article key={v.autore} className="rounded-[28px] bg-paper2 p-8">
+                <blockquote className="text-xl leading-relaxed text-testo">
+                  “{v.testo}”
                 </blockquote>
-                <cite className="mt-4 block font-sans text-[0.72rem] not-italic uppercase tracking-[0.16em] text-muted">
-                  <b className="font-semibold text-bordeaux">{v.autore}</b> · {v.ruolo}
-                </cite>
+                <p className="mt-6 text-lg">
+                  <b className="font-semibold text-ink">{v.autore}</b>
+                  <span className="text-muted"> · {v.ruolo}</span>
+                </p>
               </article>
             ))}
           </div>
         </section>
 
-        {/* Epilogo */}
-        <section className="mt-18 bg-ink px-6 py-18 text-paper">
-          <div className="mx-auto max-w-3xl border border-orochiara/60 px-8 py-12 text-center">
-            <p className="font-sans text-[0.72rem] uppercase tracking-[0.26em] text-orochiara">
-              Epilogo
-            </p>
-            <h2 className="mt-2 text-balance font-display text-3xl font-medium sm:text-4xl">
-              La tua storia comincia qui.
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-paper/80">
-              Crea il tuo account gratuito, scrivi il primo capitolo della tua vita e
-              scopri com&apos;è vederla diventare un libro. Al resto pensiamo noi.
-            </p>
-            <Link
-              href="/registrati"
-              className="mt-8 inline-block bg-orochiara px-8 py-3.5 font-sans text-[0.78rem] uppercase tracking-[0.18em] text-ink hover:bg-[#e6cd88]"
-            >
-              Inizia gratis
-            </Link>
-          </div>
+        {/* CTA finale */}
+        <section className="bg-paper2 px-6 py-24 text-center">
+          <h2 className="mx-auto max-w-3xl text-balance text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
+            La tua storia comincia qui.
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-balance text-2xl text-muted">
+            Crea il tuo account gratuito, scrivi il primo capitolo della tua vita e
+            scopri com&apos;è vederla diventare un libro. Al resto pensiamo noi.
+          </p>
+          <Link
+            href="/registrati"
+            className="mt-10 inline-block rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0077ed]"
+          >
+            Inizia gratis
+          </Link>
         </section>
       </main>
 

@@ -1,18 +1,5 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, EB_Garamond } from "next/font/google";
 import "./globals.css";
-
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-});
-
-const garamond = EB_Garamond({
-  variable: "--font-garamond",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-});
 
 export const metadata: Metadata = {
   title: "Splendoria — La tua vita in un romanzo",
@@ -26,10 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="it"
-      className={`${bodoni.variable} ${garamond.variable} h-full antialiased`}
-    >
+    <html lang="it" className="h-full antialiased">
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

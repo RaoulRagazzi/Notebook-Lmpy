@@ -22,14 +22,12 @@ export default async function StudioPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-20 pt-12">
-        <p className="font-sans text-[0.72rem] uppercase tracking-[0.26em] text-oro">
-          Il tuo Studio
-        </p>
-        <h1 className="mt-1 font-display text-4xl font-medium text-ink">
+      <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-24 pt-14">
+        <p className="text-lg font-semibold text-oro">Il tuo Studio</p>
+        <h1 className="mt-1 text-5xl font-semibold tracking-tight text-ink">
           Bentornato{session.user.name ? `, ${session.user.name}` : ""}.
         </h1>
-        <p className="mt-3 max-w-2xl">
+        <p className="mt-5 max-w-2xl text-xl text-muted">
           Questo è il tuo spazio di scrittura. Il primo capitolo — fino a sei pagine — è
           in omaggio: raccontaci come comincia la tua storia. Quando vorrai continuare,
           scegli una formula del listino e un ghostwriter professionista la porterà a
@@ -37,22 +35,22 @@ export default async function StudioPage() {
         </p>
 
         {ordini.length > 0 && (
-          <section className="mt-8 space-y-3">
+          <section className="mt-10 space-y-4">
             {ordini.map((o) => {
               const f = getFormula(o.formula);
               return (
                 <div
                   key={o.id}
-                  className="flex flex-wrap items-baseline justify-between gap-2 border border-oro/50 bg-paper3 px-5 py-4"
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-[28px] bg-paper2 px-8 py-6"
                 >
                   <div>
-                    <p className="font-display text-lg text-ink">
+                    <p className="text-2xl font-semibold tracking-tight text-ink">
                       Formula {f?.nome ?? o.formula} ·{" "}
                       <span className="tabular-nums">
                         {o.prezzo.toLocaleString("it-IT")} €
                       </span>
                     </p>
-                    <p className="text-sm text-muted">
+                    <p className="mt-1 text-lg text-muted">
                       Richiesta ricevuta il{" "}
                       {new Intl.DateTimeFormat("it-IT", { dateStyle: "long" }).format(
                         o.createdAt
@@ -61,7 +59,7 @@ export default async function StudioPage() {
                       intervista.
                     </p>
                   </div>
-                  <span className="bg-oro/15 px-3 py-1 font-sans text-[0.66rem] uppercase tracking-[0.16em] text-oro">
+                  <span className="rounded-full bg-oro/10 px-4 py-1.5 text-base font-medium text-oro">
                     {o.stato === "richiesta" ? "In lavorazione" : o.stato}
                   </span>
                 </div>
@@ -79,20 +77,20 @@ export default async function StudioPage() {
         />
 
         {ordini.length === 0 && (
-          <section className="mt-12 border border-orochiara/60 bg-ink px-8 py-10 text-center text-paper">
-            <h2 className="text-balance font-display text-2xl font-medium">
+          <section className="mt-14 rounded-[28px] bg-black px-8 py-14 text-center text-white">
+            <h2 className="text-balance text-4xl font-semibold tracking-tight">
               Ti piace com&apos;è cominciata?
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-paper/80">
+            <p className="mx-auto mt-4 max-w-xl text-xl text-white/75">
               Il tuo primo capitolo è solo l&apos;inizio. Scegli la formula più adatta e
-              i nostri ghostwriter trasformeranno la tua storia in un libro vero, stampato
-              e depositato a tuo nome.
+              i nostri ghostwriter trasformeranno la tua storia in un libro vero,
+              stampato e depositato a tuo nome.
             </p>
             <Link
               href="/listino"
-              className="mt-6 inline-block bg-orochiara px-8 py-3 font-sans text-[0.78rem] uppercase tracking-[0.18em] text-ink hover:bg-[#e6cd88]"
+              className="mt-8 inline-block rounded-full bg-oro px-8 py-4 text-xl font-medium text-white hover:bg-[#0077ed]"
             >
-              Continua il tuo libro — vedi il listino
+              Continua il tuo libro&nbsp;›
             </Link>
           </section>
         )}

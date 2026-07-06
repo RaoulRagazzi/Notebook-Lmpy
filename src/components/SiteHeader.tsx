@@ -5,24 +5,21 @@ export default async function SiteHeader() {
   const session = await auth();
 
   return (
-    <nav className="sticky top-0 z-10 border-b border-orochiara/35 bg-ink text-paper">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-6 py-3">
-        <Link
-          href="/"
-          className="font-display text-lg uppercase tracking-[0.22em] text-orochiara"
-        >
+    <nav className="sticky top-0 z-10 bg-[#161617]/95 text-white backdrop-blur-md">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-6 py-3.5">
+        <Link href="/" className="text-xl font-semibold tracking-tight">
           Splendoria
         </Link>
-        <div className="flex flex-wrap items-baseline gap-5 font-sans text-[0.72rem] uppercase tracking-[0.14em]">
-          <Link href="/#come-funziona" className="opacity-85 hover:text-orochiara">
+        <div className="flex flex-wrap items-center gap-6 text-[15px]">
+          <Link href="/#come-funziona" className="text-white/80 hover:text-white">
             Come funziona
           </Link>
-          <Link href="/listino" className="opacity-85 hover:text-orochiara">
+          <Link href="/listino" className="text-white/80 hover:text-white">
             Listino
           </Link>
           {session?.user ? (
             <>
-              <Link href="/studio" className="text-orochiara">
+              <Link href="/studio" className="font-medium text-orochiara hover:text-white">
                 Il tuo Studio
               </Link>
               <form
@@ -33,7 +30,7 @@ export default async function SiteHeader() {
               >
                 <button
                   type="submit"
-                  className="cursor-pointer uppercase tracking-[0.14em] opacity-70 hover:opacity-100"
+                  className="cursor-pointer text-white/60 hover:text-white"
                 >
                   Esci
                 </button>
@@ -41,12 +38,12 @@ export default async function SiteHeader() {
             </>
           ) : (
             <>
-              <Link href="/accedi" className="opacity-85 hover:text-orochiara">
+              <Link href="/accedi" className="text-white/80 hover:text-white">
                 Accedi
               </Link>
               <Link
                 href="/registrati"
-                className="bg-orochiara px-3 py-1.5 text-ink hover:bg-[#e6cd88]"
+                className="rounded-full bg-oro px-4 py-1.5 font-medium text-white hover:bg-[#0077ed]"
               >
                 Inizia gratis
               </Link>

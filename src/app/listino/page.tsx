@@ -15,61 +15,58 @@ export default async function ListinoPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-6 pb-20 pt-14">
-        <p className="text-center font-sans text-[0.72rem] uppercase tracking-[0.26em] text-oro">
-          Il listino
-        </p>
-        <h1 className="mt-2 text-balance text-center font-display text-4xl font-medium text-ink">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24 pt-16">
+        <p className="text-center text-lg font-semibold text-oro">Listino</p>
+        <h1 className="mx-auto mt-2 max-w-3xl text-balance text-center text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
           Continua il tuo libro.
         </h1>
-        <div className="filetto" aria-hidden="true" />
-        <p className="mx-auto max-w-2xl text-center">
-          Il primo capitolo è in omaggio. Per trasformarlo in un libro completo — scritto
-          da un ghostwriter professionista, stampato e depositato a tuo nome — scegli la
-          formula più adatta: ti contatteremo per il pagamento e per fissare la prima
-          intervista.
+        <p className="mx-auto mt-6 max-w-3xl text-center text-2xl text-muted">
+          Il primo capitolo è in omaggio. Per trasformarlo in un libro completo —
+          scritto da un ghostwriter professionista, stampato e depositato a tuo nome —
+          scegli la formula più adatta: ti contatteremo per il pagamento e per fissare
+          la prima intervista.
         </p>
 
-        <div className="mt-12 grid items-stretch gap-5 md:grid-cols-2">
+        <div className="mt-14 grid items-stretch gap-6 lg:grid-cols-3">
           {FORMULE.map((f) => (
             <article
               key={f.id}
-              className={
-                f.inEvidenza
-                  ? "flex flex-col bg-ink p-7 text-paper"
-                  : "flex flex-col border border-linea bg-paper3 p-7"
-              }
+              className={`flex flex-col rounded-[28px] p-9 ${
+                f.inEvidenza ? "bg-ink text-white" : "bg-paper2"
+              }`}
             >
               <h2
-                className={`font-display text-2xl font-medium ${
-                  f.inEvidenza ? "text-orochiara" : "text-ink"
+                className={`text-3xl font-semibold tracking-tight ${
+                  f.inEvidenza ? "text-white" : "text-ink"
                 }`}
               >
                 {f.nome}
               </h2>
               <p
-                className={`font-display italic ${
-                  f.inEvidenza ? "text-paper/75" : "text-bordeaux"
+                className={`mt-1 text-lg ${
+                  f.inEvidenza ? "text-white/70" : "text-muted"
                 }`}
               >
                 {f.sottotitolo}
               </p>
-              <p className="mt-4 font-display text-3xl tabular-nums">
-                {f.prezzo.toLocaleString("it-IT")}&nbsp;€{" "}
-                <small
-                  className={`font-sans text-sm tracking-wide ${
-                    f.inEvidenza ? "text-paper/60" : "text-muted"
-                  }`}
-                >
-                  · {f.pagine}
-                </small>
+              <p className="mt-6 text-5xl font-semibold tracking-tight tabular-nums">
+                {f.prezzo.toLocaleString("it-IT")}&nbsp;€
               </p>
-              <ul className="mt-4 flex-1">
+              <p
+                className={`mt-1 text-lg ${
+                  f.inEvidenza ? "text-white/70" : "text-muted"
+                }`}
+              >
+                {f.pagine}
+              </p>
+              <ul className="mt-6 flex-1">
                 {f.dettagli.map((d) => (
                   <li
                     key={d}
-                    className={`relative border-t py-2 pl-5 text-[0.93rem] before:absolute before:left-0 before:text-oro before:content-['—'] ${
-                      f.inEvidenza ? "border-paper/15" : "border-linea"
+                    className={`border-t py-3 text-lg ${
+                      f.inEvidenza
+                        ? "border-white/15 text-white/85"
+                        : "border-linea text-testo"
                     }`}
                   >
                     {d}
@@ -77,14 +74,10 @@ export default async function ListinoPage() {
                 ))}
               </ul>
               {session?.user ? (
-                <form action={creaOrdine.bind(null, f.id)} className="mt-6">
+                <form action={creaOrdine.bind(null, f.id)} className="mt-8">
                   <button
                     type="submit"
-                    className={`w-full cursor-pointer px-6 py-3 font-sans text-[0.74rem] uppercase tracking-[0.16em] ${
-                      f.inEvidenza
-                        ? "bg-orochiara text-ink hover:bg-[#e6cd88]"
-                        : "bg-ink text-paper hover:bg-ink2"
-                    }`}
+                    className="w-full cursor-pointer rounded-full bg-oro px-6 py-3.5 text-lg font-medium text-white hover:bg-[#0077ed]"
                   >
                     Scegli questa formula
                   </button>
@@ -92,11 +85,7 @@ export default async function ListinoPage() {
               ) : (
                 <Link
                   href="/registrati"
-                  className={`mt-6 block px-6 py-3 text-center font-sans text-[0.74rem] uppercase tracking-[0.16em] ${
-                    f.inEvidenza
-                      ? "bg-orochiara text-ink hover:bg-[#e6cd88]"
-                      : "bg-ink text-paper hover:bg-ink2"
-                  }`}
+                  className="mt-8 block rounded-full bg-oro px-6 py-3.5 text-center text-lg font-medium text-white hover:bg-[#0077ed]"
                 >
                   Registrati per iniziare
                 </Link>
@@ -105,7 +94,7 @@ export default async function ListinoPage() {
           ))}
         </div>
 
-        <p className="mx-auto mt-10 max-w-2xl text-center text-sm text-muted">
+        <p className="mx-auto mt-12 max-w-3xl text-center text-lg text-muted">
           Tutte le formule comprendono tutor dedicato, menabò digitale, versione
           sfogliabile, stampa delle prime 5 copie, consegna entro 10 giorni
           dall&apos;approvazione della bozza e deposito dell&apos;opera a tutela dei

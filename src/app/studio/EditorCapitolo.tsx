@@ -41,18 +41,18 @@ export default function EditorCapitolo({ iniziale }: Props) {
   }
 
   return (
-    <section className="mt-10 border border-linea bg-paper3">
-      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-linea px-6 py-4">
-        <h2 className="font-display text-2xl font-medium text-ink">
+    <section className="mt-12 rounded-[28px] bg-paper2 p-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-5">
+        <h2 className="text-3xl font-semibold tracking-tight text-ink">
           Capitolo primo <span className="text-oro">· in omaggio</span>
         </h2>
-        <div className="flex gap-1 font-sans text-[0.7rem] uppercase tracking-[0.14em]">
+        <div className="flex rounded-full bg-white p-1 text-base font-medium">
           <button
             type="button"
             onClick={() => setAnteprima(false)}
             aria-pressed={!anteprima}
-            className={`cursor-pointer px-3 py-1.5 ${
-              !anteprima ? "bg-ink text-paper" : "text-muted hover:text-ink"
+            className={`cursor-pointer rounded-full px-5 py-2 ${
+              !anteprima ? "bg-ink text-white" : "text-muted hover:text-ink"
             }`}
           >
             Scrivi
@@ -61,8 +61,8 @@ export default function EditorCapitolo({ iniziale }: Props) {
             type="button"
             onClick={() => setAnteprima(true)}
             aria-pressed={anteprima}
-            className={`cursor-pointer px-3 py-1.5 ${
-              anteprima ? "bg-ink text-paper" : "text-muted hover:text-ink"
+            className={`cursor-pointer rounded-full px-5 py-2 ${
+              anteprima ? "bg-ink text-white" : "text-muted hover:text-ink"
             }`}
           >
             Anteprima
@@ -71,37 +71,29 @@ export default function EditorCapitolo({ iniziale }: Props) {
       </div>
 
       {anteprima ? (
-        <div className="px-6 py-10 sm:px-14">
-          <p className="text-center font-sans text-[0.68rem] uppercase tracking-[0.26em] text-oro">
-            {genere}
-          </p>
-          <h3 className="mt-2 text-balance text-center font-display text-3xl font-medium text-ink">
+        <div className="rounded-[22px] bg-white px-6 py-12 sm:px-16">
+          <p className="text-center text-lg font-semibold text-oro">{genere}</p>
+          <h3 className="mx-auto mt-2 mb-10 max-w-2xl text-balance text-center text-4xl font-semibold tracking-tight text-ink">
             {titolo.trim() || "Senza titolo"}
           </h3>
-          <div className="filetto" aria-hidden="true" />
           {paragrafi.length > 0 ? (
-            <div className="pagina-libro mx-auto max-w-xl space-y-0 text-justify leading-relaxed">
+            <div className="pagina-libro mx-auto max-w-2xl text-xl leading-relaxed text-testo">
               {paragrafi.map((p, i) => (
-                <p key={i} className={i === 0 ? "incipit" : undefined}>
-                  {p}
-                </p>
+                <p key={i}>{p}</p>
               ))}
             </div>
           ) : (
-            <p className="text-center italic text-muted">
+            <p className="text-center text-xl text-muted">
               Non hai ancora scritto nulla: torna alla scheda «Scrivi» e comincia la tua
               storia.
             </p>
           )}
         </div>
       ) : (
-        <div className="space-y-5 px-6 py-6">
-          <div className="grid gap-5 sm:grid-cols-[1fr_14rem]">
+        <div className="space-y-6 rounded-[22px] bg-white px-6 py-8">
+          <div className="grid gap-6 sm:grid-cols-[1fr_16rem]">
             <div>
-              <label
-                htmlFor="titolo"
-                className="font-sans text-[0.7rem] uppercase tracking-[0.18em] text-muted"
-              >
+              <label htmlFor="titolo" className="text-base font-semibold text-ink">
                 Titolo del capitolo
               </label>
               <input
@@ -111,21 +103,18 @@ export default function EditorCapitolo({ iniziale }: Props) {
                 maxLength={120}
                 onChange={(e) => setTitolo(e.target.value)}
                 placeholder="Es. Da dove tutto è cominciato"
-                className="mt-1.5 w-full border border-linea bg-white px-3 py-2.5 font-sans text-sm outline-none focus:border-oro"
+                className="mt-1.5 w-full rounded-xl border border-linea px-4 py-3 text-lg outline-none focus:border-oro"
               />
             </div>
             <div>
-              <label
-                htmlFor="genere"
-                className="font-sans text-[0.7rem] uppercase tracking-[0.18em] text-muted"
-              >
+              <label htmlFor="genere" className="text-base font-semibold text-ink">
                 Genere
               </label>
               <select
                 id="genere"
                 value={genere}
                 onChange={(e) => setGenere(e.target.value)}
-                className="mt-1.5 w-full border border-linea bg-white px-3 py-2.5 font-sans text-sm outline-none focus:border-oro"
+                className="mt-1.5 w-full rounded-xl border border-linea bg-white px-4 py-3 text-lg outline-none focus:border-oro"
               >
                 {GENERI.map((g) => (
                   <option key={g} value={g}>
@@ -137,10 +126,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
           </div>
 
           <div>
-            <label
-              htmlFor="testo"
-              className="font-sans text-[0.7rem] uppercase tracking-[0.18em] text-muted"
-            >
+            <label htmlFor="testo" className="text-base font-semibold text-ink">
               La tua storia
             </label>
             <textarea
@@ -148,33 +134,35 @@ export default function EditorCapitolo({ iniziale }: Props) {
               value={testo}
               maxLength={MAX_BATTUTE_CAPITOLO}
               onChange={(e) => setTesto(e.target.value)}
-              rows={16}
+              rows={14}
               placeholder="C'era una volta la tua vita. Comincia a raccontarla da dove vuoi: un ricordo, una persona, un giorno che ha cambiato tutto…"
-              className="mt-1.5 w-full resize-y border border-linea bg-white px-4 py-3 leading-relaxed outline-none focus:border-oro"
+              className="mt-1.5 w-full resize-y rounded-xl border border-linea px-5 py-4 text-xl leading-relaxed outline-none focus:border-oro"
             />
           </div>
 
           <div>
-            <div className="h-1 w-full bg-linea">
+            <div className="h-1.5 w-full rounded-full bg-paper2">
               <div
-                className="h-1 bg-oro transition-[width]"
+                className="h-1.5 rounded-full bg-oro transition-[width]"
                 style={{ width: `${percento}%` }}
               />
             </div>
-            <div className="mt-2 flex flex-wrap items-baseline justify-between gap-2 font-sans text-xs text-muted">
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-base text-muted">
               <span className="tabular-nums">
                 {battute.toLocaleString("it-IT")} /{" "}
                 {MAX_BATTUTE_CAPITOLO.toLocaleString("it-IT")} battute · circa {pagine}{" "}
                 {pagine === 1 ? "pagina" : "pagine"} su 6
               </span>
-              <span className="flex items-center gap-3">
-                {error && <span className="text-bordeaux">{error}</span>}
-                {salvato && <span className="text-oro">Capitolo salvato ✓</span>}
+              <span className="flex items-center gap-4">
+                {error && <span className="text-[#de3b30]">{error}</span>}
+                {salvato && (
+                  <span className="font-medium text-oro">Capitolo salvato ✓</span>
+                )}
                 <button
                   type="button"
                   onClick={handleSalva}
                   disabled={saving}
-                  className="cursor-pointer bg-ink px-6 py-2.5 text-[0.72rem] uppercase tracking-[0.16em] text-paper hover:bg-ink2 disabled:opacity-50"
+                  className="cursor-pointer rounded-full bg-oro px-7 py-3 text-lg font-medium text-white hover:bg-[#0077ed] disabled:opacity-50"
                 >
                   {saving ? "Salvataggio…" : "Salva capitolo"}
                 </button>

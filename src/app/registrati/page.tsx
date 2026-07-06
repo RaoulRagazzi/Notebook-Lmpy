@@ -41,41 +41,39 @@ export default function RegistratiPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-ink px-6 py-12">
-      <div className="w-full max-w-md border border-orochiara/60 bg-ink p-9 text-paper outline outline-1 outline-offset-[6px] outline-orochiara/30">
-        <p className="text-center font-sans text-[0.68rem] uppercase tracking-[0.3em] text-orochiara">
-          Splendoria
-        </p>
+    <div className="flex min-h-screen items-center justify-center bg-paper2 px-6 py-14">
+      <div className="w-full max-w-lg rounded-[28px] bg-white p-10 shadow-sm">
+        <p className="text-center text-lg font-semibold text-oro">Splendoria</p>
 
         {credenziali ? (
           <>
-            <h1 className="mt-3 text-center font-display text-3xl font-medium">
+            <h1 className="mt-2 text-center text-4xl font-semibold tracking-tight text-ink">
               Benvenuto{nome ? `, ${nome.trim()}` : ""}.
             </h1>
-            <p className="mt-3 text-center text-sm text-paper/75">
+            <p className="mt-4 text-center text-lg text-muted">
               Il tuo account è pronto. Queste sono le tue credenziali:{" "}
-              <em className="text-orochiara">conservale con cura</em>, ti serviranno per
-              accedere al tuo Studio.
+              <b className="font-semibold text-ink">conservale con cura</b>, ti
+              serviranno per accedere al tuo Studio.
             </p>
-            <dl className="mt-6 space-y-4 border border-paper/15 p-5 font-sans text-sm">
+            <dl className="mt-7 space-y-5 rounded-2xl bg-paper2 p-6">
               <div>
-                <dt className="text-[0.66rem] uppercase tracking-[0.2em] text-orochiara">
+                <dt className="text-base font-semibold text-ink">
                   Nome utente (email)
                 </dt>
-                <dd className="mt-1 break-all">{credenziali.email}</dd>
+                <dd className="mt-1 break-all text-lg text-testo">
+                  {credenziali.email}
+                </dd>
               </div>
               <div>
-                <dt className="text-[0.66rem] uppercase tracking-[0.2em] text-orochiara">
-                  Password
-                </dt>
-                <dd className="mt-1 flex items-center gap-3">
-                  <code className="bg-paper/10 px-2 py-1 text-base tracking-wide">
+                <dt className="text-base font-semibold text-ink">Password</dt>
+                <dd className="mt-1 flex flex-wrap items-center gap-3">
+                  <code className="rounded-lg bg-white px-3 py-1.5 text-xl tracking-wide">
                     {credenziali.password}
                   </code>
                   <button
                     type="button"
                     onClick={copiaPassword}
-                    className="cursor-pointer border border-paper/30 px-2 py-1 text-[0.66rem] uppercase tracking-[0.14em] hover:border-orochiara"
+                    className="cursor-pointer rounded-full border border-linea px-4 py-1.5 text-base font-medium text-oro hover:border-oro"
                   >
                     {copiato ? "Copiata ✓" : "Copia"}
                   </button>
@@ -87,27 +85,24 @@ export default function RegistratiPage() {
                 router.push("/studio");
                 router.refresh();
               }}
-              className="mt-7 w-full cursor-pointer bg-orochiara px-6 py-3 font-sans text-[0.78rem] uppercase tracking-[0.18em] text-ink hover:bg-[#e6cd88]"
+              className="mt-8 w-full cursor-pointer rounded-full bg-oro px-6 py-4 text-xl font-medium text-white hover:bg-[#0077ed]"
             >
               Entra nel tuo Studio
             </button>
           </>
         ) : (
           <>
-            <h1 className="mt-3 text-center font-display text-3xl font-medium">
+            <h1 className="mt-2 text-center text-4xl font-semibold tracking-tight text-ink">
               Crea il tuo account
             </h1>
-            <p className="mt-3 text-center text-sm text-paper/75">
-              Ricevi subito le tue credenziali e scrivi gratis il primo capitolo della tua
-              storia: fino a sei pagine, senza impegno.
+            <p className="mt-4 text-center text-lg text-muted">
+              Ricevi subito le tue credenziali e scrivi gratis il primo capitolo della
+              tua storia: fino a sei pagine, senza impegno.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div>
-                <label
-                  htmlFor="nome"
-                  className="font-sans text-[0.7rem] uppercase tracking-[0.18em] text-orochiara"
-                >
+                <label htmlFor="nome" className="text-base font-semibold text-ink">
                   Nome
                 </label>
                 <input
@@ -116,14 +111,11 @@ export default function RegistratiPage() {
                   required
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  className="mt-1.5 w-full border border-paper/30 bg-transparent px-3 py-2.5 font-sans text-sm outline-none focus:border-orochiara"
+                  className="mt-1.5 w-full rounded-xl border border-linea px-4 py-3 text-lg outline-none focus:border-oro"
                 />
               </div>
               <div>
-                <label
-                  htmlFor="email"
-                  className="font-sans text-[0.7rem] uppercase tracking-[0.18em] text-orochiara"
-                >
+                <label htmlFor="email" className="text-base font-semibold text-ink">
                   Email
                 </label>
                 <input
@@ -132,24 +124,24 @@ export default function RegistratiPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1.5 w-full border border-paper/30 bg-transparent px-3 py-2.5 font-sans text-sm outline-none focus:border-orochiara"
+                  className="mt-1.5 w-full rounded-xl border border-linea px-4 py-3 text-lg outline-none focus:border-oro"
                 />
               </div>
 
-              {error && <p className="text-sm text-[#e2a5a5]">{error}</p>}
+              {error && <p className="text-lg text-[#de3b30]">{error}</p>}
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full cursor-pointer bg-orochiara px-6 py-3 font-sans text-[0.78rem] uppercase tracking-[0.18em] text-ink hover:bg-[#e6cd88] disabled:opacity-50"
+                className="w-full cursor-pointer rounded-full bg-oro px-6 py-4 text-xl font-medium text-white hover:bg-[#0077ed] disabled:opacity-50"
               >
                 {loading ? "Creazione…" : "Registrati gratis"}
               </button>
             </form>
 
-            <p className="mt-6 text-center font-sans text-sm text-paper/70">
+            <p className="mt-7 text-center text-lg text-muted">
               Hai già un account?{" "}
-              <Link href="/accedi" className="text-orochiara hover:underline">
+              <Link href="/accedi" className="font-medium text-oro hover:underline">
                 Accedi
               </Link>
             </p>
