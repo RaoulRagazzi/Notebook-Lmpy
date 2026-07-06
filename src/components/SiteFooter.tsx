@@ -22,8 +22,8 @@ export default function SiteFooter() {
           <b className="mb-1 block text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-orochiara">
             Email
           </b>
-          <a href="mailto:info@splendoria.it" className="border-b border-orochiara/50">
-            info@splendoria.it
+          <a href="mailto:info@splendoria.vip" className="border-b border-orochiara/50">
+            info@splendoria.vip
           </a>
         </span>
       </div>
