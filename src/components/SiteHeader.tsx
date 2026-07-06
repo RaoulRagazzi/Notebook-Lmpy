@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { auth, signOut } from "@/auth";
+import { getDict } from "@/lib/i18n";
+import { getLang } from "@/lib/lang";
+import LangSwitcher from "./LangSwitcher";
 
 export default async function SiteHeader() {
-  const session = await auth();
+  const [session, lang] = await Promise.all([auth(), getLang()]);
+  const t = getDict(lang).nav;
 
   return (
     <nav className="sticky top-0 z-10 bg-[#0d1f1c]/95 text-white backdrop-blur-md">
@@ -12,15 +16,18 @@ export default async function SiteHeader() {
         </Link>
         <div className="flex flex-wrap items-center gap-6 text-[15px]">
           <Link href="/#come-funziona" className="text-white/80 hover:text-white">
-            Come funziona
+            {t.comeFunziona}
           </Link>
           <Link href="/listino" className="text-white/80 hover:text-white">
-            Listino
+            {t.listino}
           </Link>
           {session?.user ? (
             <>
-              <Link href="/studio" className="font-medium text-orochiara hover:text-white">
-                Il tuo Studio
+              <Link
+                href="/studio"
+                className="font-medium text-orochiara hover:text-white"
+              >
+                {t.studio}
               </Link>
               <form
                 action={async () => {
@@ -32,23 +39,24 @@ export default async function SiteHeader() {
                   type="submit"
                   className="cursor-pointer text-white/60 hover:text-white"
                 >
-                  Esci
+                  {t.esci}
                 </button>
               </form>
             </>
           ) : (
             <>
               <Link href="/accedi" className="text-white/80 hover:text-white">
-                Accedi
+                {t.accedi}
               </Link>
               <Link
                 href="/registrati"
                 className="rounded-full bg-oro px-4 py-1.5 font-medium text-white hover:bg-[#0b7c72]"
               >
-                Inizia gratis
+                {t.iniziaGratis}
               </Link>
             </>
           )}
+          <LangSwitcher current={lang} />
         </div>
       </div>
     </nav>

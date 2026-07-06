@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { EB_Garamond } from "next/font/google";
+import { getLang } from "@/lib/lang";
 import "./globals.css";
 
 const garamond = EB_Garamond({
@@ -14,13 +15,14 @@ export const metadata: Metadata = {
     "Il servizio di ghostwriting che trasforma la tua storia in un libro vero, scritto da professionisti. Scrivi gratis il tuo primo capitolo.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const lang = await getLang();
   return (
-    <html lang="it" className={`${garamond.variable} h-full antialiased`}>
+    <html lang={lang} className={`${garamond.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

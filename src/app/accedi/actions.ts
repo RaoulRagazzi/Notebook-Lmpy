@@ -5,14 +5,17 @@ import bcrypt from "bcryptjs";
 import { signIn } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { AuthError } from "next-auth";
+import { getDict } from "@/lib/i18n";
+import { getLang } from "@/lib/lang";
 
 export async function login(email: string, password: string) {
+  const errors = getDict(await getLang()).errors;
   try {
     await signIn("credentials", { email, password, redirect: false });
     return { ok: true };
   } catch (error) {
     if (error instanceof AuthError) {
-      return { ok: false, error: "Email o password non corretti." };
+      return { ok: false, error: errors.credenziali };
     }
     throw error;
   }
@@ -46,20 +49,23 @@ function generaPassword(): string {
 }
 
 export async function registrati(nome: string, email: string) {
+  const errors = getDict(await getLang()).errors;
   const emailPulita = email.trim().toLowerCase();
   const nomePulito = nome.trim();
   if (!nomePulito || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailPulita)) {
-    return { ok: false as const, error: "Inserisci nome e un indirizzo email valido." };
+    return { ok: false as const, error: errors.datiNonValidi };
   }
 
   const existing = await prisma.user.findUnique({ where: { email: emailPulita } });
   if (existing) {
-    return { ok: false as const, error: "Esiste già un account con questa email. Accedi." };
+    return { ok: false as const, error: errors.emailEsistente };
   }
 
   const password = generaPassword();
   const passwordHash = await bcrypt.hash(password, 10);
-  await prisma.user.create({ data: { nome: nomePulito, email: emailPulita, passwordHash } });
+  await prisma.user.create({
+    data: { nome: nomePulito, email: emailPulita, passwordHash },
+  });
 
   const res = await login(emailPulita, password);
   if (!res.ok) return { ok: false as const, error: res.error };

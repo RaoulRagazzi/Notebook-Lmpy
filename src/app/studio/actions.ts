@@ -2,24 +2,29 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { GENERI, MAX_BATTUTE_CAPITOLO } from "@/lib/listino";
+import { MAX_BATTUTE_CAPITOLO } from "@/lib/listino";
+import { getDict } from "@/lib/i18n";
+import { getLang } from "@/lib/lang";
 
 export async function salvaCapitolo(titolo: string, genere: string, testo: string) {
+  const errors = getDict(await getLang()).errors;
+
   const session = await auth();
   if (!session?.user?.id) {
-    return { ok: false as const, error: "Sessione scaduta: accedi di nuovo." };
+    return { ok: false as const, error: errors.sessioneScaduta };
   }
 
   if (testo.length > MAX_BATTUTE_CAPITOLO) {
     return {
       ok: false as const,
-      error: `Il capitolo gratuito può contenere al massimo ${MAX_BATTUTE_CAPITOLO.toLocaleString("it-IT")} battute.`,
+      error: errors.troppeBattute.replace(
+        "{max}",
+        MAX_BATTUTE_CAPITOLO.toLocaleString("it-IT")
+      ),
     };
   }
 
-  const genereValido = (GENERI as readonly string[]).includes(genere)
-    ? genere
-    : GENERI[0];
+  const genereValido = genere.trim().slice(0, 40) || "Autobiografia";
 
   await prisma.capitolo.upsert({
     where: { userId: session.user.id },

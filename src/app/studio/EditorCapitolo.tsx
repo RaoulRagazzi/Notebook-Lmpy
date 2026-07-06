@@ -1,14 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { GENERI, MAX_BATTUTE_CAPITOLO, BATTUTE_PER_PAGINA } from "@/lib/listino";
+import { MAX_BATTUTE_CAPITOLO, BATTUTE_PER_PAGINA } from "@/lib/listino";
+import type { Dict } from "@/lib/i18n";
 import { salvaCapitolo } from "./actions";
 
 type Props = {
   iniziale: { titolo: string; genere: string; testo: string };
+  t: Dict["editor"];
+  generi: readonly string[];
+  locale: string;
 };
 
-export default function EditorCapitolo({ iniziale }: Props) {
+export default function EditorCapitolo({ iniziale, t, generi, locale }: Props) {
   const [titolo, setTitolo] = useState(iniziale.titolo);
   const [genere, setGenere] = useState(iniziale.genere);
   const [testo, setTesto] = useState(iniziale.testo);
@@ -33,7 +37,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
     const res = await salvaCapitolo(titolo, genere, testo);
     setSaving(false);
     if (!res.ok) {
-      setError(res.error ?? "Errore durante il salvataggio.");
+      setError(res.error ?? t.erroreSalvataggio);
       return;
     }
     setSalvato(true);
@@ -44,7 +48,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
     <section className="mt-12 rounded-[28px] bg-paper2 p-2">
       <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-5">
         <h2 className="font-display text-3xl font-semibold text-ink">
-          Capitolo primo <span className="text-oro">· in omaggio</span>
+          {t.capitolo} <span className="text-oro">{t.omaggio}</span>
         </h2>
         <div className="flex rounded-full bg-white p-1 text-base font-medium">
           <button
@@ -55,7 +59,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
               !anteprima ? "bg-ink text-white" : "text-muted hover:text-ink"
             }`}
           >
-            Scrivi
+            {t.scrivi}
           </button>
           <button
             type="button"
@@ -65,7 +69,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
               anteprima ? "bg-ink text-white" : "text-muted hover:text-ink"
             }`}
           >
-            Anteprima
+            {t.anteprima}
           </button>
         </div>
       </div>
@@ -74,7 +78,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
         <div className="rounded-[22px] bg-white px-6 py-12 sm:px-16">
           <p className="text-center text-lg font-semibold text-oro">{genere}</p>
           <h3 className="mx-auto mt-2 mb-10 font-display max-w-2xl text-balance text-center text-4xl font-semibold text-ink">
-            {titolo.trim() || "Senza titolo"}
+            {titolo.trim() || t.senzaTitolo}
           </h3>
           {paragrafi.length > 0 ? (
             <div className="pagina-libro font-display mx-auto max-w-2xl text-[22px] leading-relaxed text-testo">
@@ -83,10 +87,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
               ))}
             </div>
           ) : (
-            <p className="text-center text-xl text-muted">
-              Non hai ancora scritto nulla: torna alla scheda «Scrivi» e comincia la tua
-              storia.
-            </p>
+            <p className="text-center text-xl text-muted">{t.vuoto}</p>
           )}
         </div>
       ) : (
@@ -94,7 +95,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
           <div className="grid gap-6 sm:grid-cols-[1fr_16rem]">
             <div>
               <label htmlFor="titolo" className="text-base font-semibold text-ink">
-                Titolo del capitolo
+                {t.titoloLabel}
               </label>
               <input
                 id="titolo"
@@ -102,13 +103,13 @@ export default function EditorCapitolo({ iniziale }: Props) {
                 value={titolo}
                 maxLength={120}
                 onChange={(e) => setTitolo(e.target.value)}
-                placeholder="Es. Da dove tutto è cominciato"
+                placeholder={t.titoloPlaceholder}
                 className="mt-1.5 w-full rounded-xl border border-linea px-4 py-3 text-lg outline-none focus:border-oro"
               />
             </div>
             <div>
               <label htmlFor="genere" className="text-base font-semibold text-ink">
-                Genere
+                {t.genereLabel}
               </label>
               <select
                 id="genere"
@@ -116,7 +117,10 @@ export default function EditorCapitolo({ iniziale }: Props) {
                 onChange={(e) => setGenere(e.target.value)}
                 className="mt-1.5 w-full rounded-xl border border-linea bg-white px-4 py-3 text-lg outline-none focus:border-oro"
               >
-                {GENERI.map((g) => (
+                {!generi.includes(genere) && (
+                  <option value={genere}>{genere}</option>
+                )}
+                {generi.map((g) => (
                   <option key={g} value={g}>
                     {g}
                   </option>
@@ -127,7 +131,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
 
           <div>
             <label htmlFor="testo" className="text-base font-semibold text-ink">
-              La tua storia
+              {t.storiaLabel}
             </label>
             <textarea
               id="testo"
@@ -135,7 +139,7 @@ export default function EditorCapitolo({ iniziale }: Props) {
               maxLength={MAX_BATTUTE_CAPITOLO}
               onChange={(e) => setTesto(e.target.value)}
               rows={14}
-              placeholder="C'era una volta la tua vita. Comincia a raccontarla da dove vuoi: un ricordo, una persona, un giorno che ha cambiato tutto…"
+              placeholder={t.testoPlaceholder}
               className="mt-1.5 w-full resize-y rounded-xl border border-linea px-5 py-4 text-xl leading-relaxed outline-none focus:border-oro"
             />
           </div>
@@ -149,22 +153,20 @@ export default function EditorCapitolo({ iniziale }: Props) {
             </div>
             <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-base text-muted">
               <span className="tabular-nums">
-                {battute.toLocaleString("it-IT")} /{" "}
-                {MAX_BATTUTE_CAPITOLO.toLocaleString("it-IT")} battute · circa {pagine}{" "}
-                {pagine === 1 ? "pagina" : "pagine"} su 6
+                {battute.toLocaleString(locale)} /{" "}
+                {MAX_BATTUTE_CAPITOLO.toLocaleString(locale)} {t.battute} · {t.circa}{" "}
+                {pagine} {pagine === 1 ? t.pagina : t.pagine} {t.su6}
               </span>
               <span className="flex items-center gap-4">
                 {error && <span className="text-[#de3b30]">{error}</span>}
-                {salvato && (
-                  <span className="font-medium text-oro">Capitolo salvato ✓</span>
-                )}
+                {salvato && <span className="font-medium text-oro">{t.salvato}</span>}
                 <button
                   type="button"
                   onClick={handleSalva}
                   disabled={saving}
                   className="cursor-pointer rounded-full bg-oro px-7 py-3 text-lg font-medium text-white hover:bg-[#0b7c72] disabled:opacity-50"
                 >
-                  {saving ? "Salvataggio…" : "Salva capitolo"}
+                  {saving ? t.salvataggio : t.salva}
                 </button>
               </span>
             </div>
