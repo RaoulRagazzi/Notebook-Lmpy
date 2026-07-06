@@ -1,5 +1,6 @@
 "use server";
 
+import { randomInt } from "crypto";
 import bcrypt from "bcryptjs";
 import { signIn } from "@/auth";
 import { prisma } from "@/lib/prisma";
@@ -17,14 +18,51 @@ export async function login(email: string, password: string) {
   }
 }
 
-export async function registrati(nome: string, email: string, password: string) {
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) {
-    return { ok: false, error: "Esiste già un account con questa email." };
+// Password leggibili e facili da trascrivere: due parole + due cifre
+const PAROLE = [
+  "inchiostro",
+  "romanzo",
+  "capitolo",
+  "poesia",
+  "racconto",
+  "memoria",
+  "pagina",
+  "penna",
+  "storia",
+  "libro",
+  "prosa",
+  "epilogo",
+  "incipit",
+  "sogno",
+  "vita",
+  "parola",
+];
+
+function generaPassword(): string {
+  const a = PAROLE[randomInt(PAROLE.length)];
+  const b = PAROLE[randomInt(PAROLE.length)];
+  const n = randomInt(10, 100);
+  return `${a}-${b}-${n}`;
+}
+
+export async function registrati(nome: string, email: string) {
+  const emailPulita = email.trim().toLowerCase();
+  const nomePulito = nome.trim();
+  if (!nomePulito || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailPulita)) {
+    return { ok: false as const, error: "Inserisci nome e un indirizzo email valido." };
   }
 
-  const passwordHash = await bcrypt.hash(password, 10);
-  await prisma.user.create({ data: { nome, email, passwordHash } });
+  const existing = await prisma.user.findUnique({ where: { email: emailPulita } });
+  if (existing) {
+    return { ok: false as const, error: "Esiste già un account con questa email. Accedi." };
+  }
 
-  return login(email, password);
+  const password = generaPassword();
+  const passwordHash = await bcrypt.hash(password, 10);
+  await prisma.user.create({ data: { nome: nomePulito, email: emailPulita, passwordHash } });
+
+  const res = await login(emailPulita, password);
+  if (!res.ok) return { ok: false as const, error: res.error };
+
+  return { ok: true as const, email: emailPulita, password };
 }

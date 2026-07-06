@@ -22,55 +22,70 @@ export default function AccediPage() {
       setError(res.error ?? "Errore durante l'accesso.");
       return;
     }
-    router.push("/etichette");
+    router.push("/studio");
     router.refresh();
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-sand-50 px-6">
-      <div className="w-full max-w-sm rounded-2xl border border-sand-200 bg-white p-8 shadow-sm">
-        <h1 className="text-xl font-semibold text-sand-900">Accedi</h1>
-        <p className="mt-1 text-sm text-sand-600">
-          Entra per gestire le tue etichette elettroniche.
+    <div className="flex min-h-screen items-center justify-center bg-ink px-6 py-12">
+      <div className="w-full max-w-md border border-orochiara/60 bg-ink p-9 text-paper outline outline-1 outline-offset-[6px] outline-orochiara/30">
+        <p className="text-center font-sans text-[0.68rem] uppercase tracking-[0.3em] text-orochiara">
+          Splendoria
+        </p>
+        <h1 className="mt-3 text-center font-display text-3xl font-medium">Accedi</h1>
+        <p className="mt-3 text-center text-sm text-paper/75">
+          Entra nel tuo Studio e continua a scrivere la tua storia.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-7 space-y-5">
           <div>
-            <label className="text-sm font-medium text-sand-700">Email</label>
+            <label
+              htmlFor="email"
+              className="font-sans text-[0.7rem] uppercase tracking-[0.18em] text-orochiara"
+            >
+              Email
+            </label>
             <input
+              id="email"
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-sand-300 px-3 py-2 text-sm outline-none focus:border-wine-500"
+              className="mt-1.5 w-full border border-paper/30 bg-transparent px-3 py-2.5 font-sans text-sm outline-none focus:border-orochiara"
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-sand-700">Password</label>
+            <label
+              htmlFor="password"
+              className="font-sans text-[0.7rem] uppercase tracking-[0.18em] text-orochiara"
+            >
+              Password
+            </label>
             <input
+              id="password"
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-sand-300 px-3 py-2 text-sm outline-none focus:border-wine-500"
+              className="mt-1.5 w-full border border-paper/30 bg-transparent px-3 py-2.5 font-sans text-sm outline-none focus:border-orochiara"
             />
           </div>
 
-          {error && <p className="text-sm text-wine-600">{error}</p>}
+          {error && <p className="text-sm text-[#e2a5a5]">{error}</p>}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full bg-olive-500 px-5 py-2 text-sm font-medium text-sand-50 hover:bg-wine-600 disabled:opacity-50"
+            className="w-full cursor-pointer bg-orochiara px-6 py-3 font-sans text-[0.78rem] uppercase tracking-[0.18em] text-ink hover:bg-[#e6cd88] disabled:opacity-50"
           >
             {loading ? "Accesso…" : "Accedi"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-sand-600">
+        <p className="mt-6 text-center font-sans text-sm text-paper/70">
           Non hai un account?{" "}
-          <Link href="/registrati" className="font-medium text-wine-500 hover:underline">
-            Registrati
+          <Link href="/registrati" className="text-orochiara hover:underline">
+            Registrati gratis
           </Link>
         </p>
       </div>

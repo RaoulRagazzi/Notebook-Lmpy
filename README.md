@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Splendoria — La tua vita in un romanzo
 
-## Getting Started
+Sito web del progetto **Splendoria** (già *Fabulis Vitae*): il servizio di
+ghostwriting che trasforma la storia di una persona — o di un'azienda — in un
+libro vero, scritto da professionisti.
 
-First, run the development server:
+## Cosa fa il sito
+
+- **Landing page** con la storia del progetto, come funziona, le formule, i
+  servizi inclusi e le testimonianze.
+- **Registrazione** (`/registrati`): il cliente inserisce nome ed email e
+  riceve subito le credenziali (la password viene generata automaticamente e
+  mostrata a schermo).
+- **Studio** (`/studio`, area riservata): il cliente scrive gratis il primo
+  capitolo della sua storia — fino a ~6 pagine (4.000 battute) — con anteprima
+  impaginata come una pagina di libro.
+- **Listino** (`/listino`): le quattro formule con i prezzi; il cliente
+  sceglie la formula e invia la richiesta di conversione (l'ordine compare nel
+  suo Studio con stato "in lavorazione").
+
+I prezzi e le formule si aggiornano in un unico file: `src/lib/listino.ts`.
+
+## Stack
+
+Next.js (App Router) · TypeScript · Tailwind CSS 4 · Prisma + SQLite ·
+NextAuth (credenziali).
+
+## Sviluppo
 
 ```bash
+npm install
+DATABASE_URL="file:./dev.db" npx prisma migrate dev   # prepara il database
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Apri [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Variabili d'ambiente utili (`.env`):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+DATABASE_URL="file:./dev.db"
+AUTH_SECRET="<stringa casuale>"   # obbligatoria in produzione
+```
 
-## Learn More
+## Prossimi passi suggeriti
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Invio delle credenziali via email (ora sono mostrate solo a schermo).
+- Pagamento online (es. Stripe) al posto della richiesta di contatto.
+- Recupero password.

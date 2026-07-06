@@ -1,88 +1,103 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { listWinesWithStoryStatus } from "@/lib/wineStory";
+import { prisma } from "@/lib/prisma";
+import { getFormula } from "@/lib/listino";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import EditorCapitolo from "./EditorCapitolo";
 
-export default async function StudioDashboard() {
+export default async function StudioPage() {
   const session = await auth();
-  const wines = await listWinesWithStoryStatus(session!.user.id);
+  if (!session?.user?.id) redirect("/accedi");
+
+  const [capitolo, ordini] = await Promise.all([
+    prisma.capitolo.findUnique({ where: { userId: session.user.id } }),
+    prisma.ordine.findMany({
+      where: { userId: session.user.id },
+      orderBy: { createdAt: "desc" },
+    }),
+  ]);
 
   return (
-    <div className="min-h-screen bg-sand-50 px-6 py-10 sm:px-10">
-      <div className="mx-auto max-w-4xl">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-wide text-wine-500">
-              Veritas Studio
-            </p>
-            <h1 className="mt-1 text-2xl font-semibold text-sand-900">
-              Materiali di marketing per i tuoi vini
-            </h1>
-            <p className="mt-2 max-w-xl text-sm text-sand-600">
-              Trasforma i dati delle tue etichette in schede tecniche,
-              contenuti social e materiali commerciali pronti all&apos;uso.
-            </p>
-          </div>
-          <Link
-            href="/etichette"
-            className="rounded-full border border-sand-300 px-5 py-2 text-sm font-medium text-sand-700 hover:bg-sand-100"
-          >
-            ← Le mie etichette
-          </Link>
-        </div>
+    <>
+      <SiteHeader />
+      <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-20 pt-12">
+        <p className="font-sans text-[0.72rem] uppercase tracking-[0.26em] text-oro">
+          Il tuo Studio
+        </p>
+        <h1 className="mt-1 font-display text-4xl font-medium text-ink">
+          Bentornato{session.user.name ? `, ${session.user.name}` : ""}.
+        </h1>
+        <p className="mt-3 max-w-2xl">
+          Questo è il tuo spazio di scrittura. Il primo capitolo — fino a sei pagine — è
+          in omaggio: raccontaci come comincia la tua storia. Quando vorrai continuare,
+          scegli una formula del listino e un ghostwriter professionista la porterà a
+          compimento.
+        </p>
 
-        <div className="mt-8 overflow-hidden rounded-lg border border-sand-200 bg-white">
-          {wines.length === 0 ? (
-            <p className="p-6 text-sm text-sand-600">
-              Non hai ancora nessuna etichetta. Crea prima un&apos;etichetta
-              elettronica per poter generare materiali di marketing.
-            </p>
-          ) : (
-            <table className="w-full text-left text-sm">
-              <thead className="bg-sand-100 text-sand-700">
-                <tr>
-                  <th className="px-4 py-3 font-medium">Vino</th>
-                  <th className="px-4 py-3 font-medium">Stato racconto</th>
-                  <th className="px-4 py-3 font-medium" />
-                </tr>
-              </thead>
-              <tbody>
-                {wines.map((wine) => (
-                  <tr key={wine.id} className="border-t border-sand-200">
-                    <td className="px-4 py-3 text-sand-900">{wine.nome}</td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`rounded-full px-3 py-1 text-xs font-medium ${
-                          wine.hasStory
-                            ? "bg-olive-100 text-olive-700"
-                            : "bg-sand-100 text-sand-600"
-                        }`}
-                      >
-                        {wine.hasStory ? "Dati completati" : "Da completare"}
+        {ordini.length > 0 && (
+          <section className="mt-8 space-y-3">
+            {ordini.map((o) => {
+              const f = getFormula(o.formula);
+              return (
+                <div
+                  key={o.id}
+                  className="flex flex-wrap items-baseline justify-between gap-2 border border-oro/50 bg-paper3 px-5 py-4"
+                >
+                  <div>
+                    <p className="font-display text-lg text-ink">
+                      Formula {f?.nome ?? o.formula} ·{" "}
+                      <span className="tabular-nums">
+                        {o.prezzo.toLocaleString("it-IT")} €
                       </span>
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <div className="flex items-center justify-end gap-4">
-                        <Link
-                          href={`/studio/${wine.slug}`}
-                          className="text-sand-700 hover:underline"
-                        >
-                          {wine.hasStory ? "Modifica dati" : "Completa dati"}
-                        </Link>
-                        <Link
-                          href={`/studio/${wine.slug}/crea`}
-                          className="rounded-full bg-olive-500 px-4 py-1.5 text-sm font-medium text-sand-50 hover:bg-wine-600"
-                        >
-                          Crea materiale marketing
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </div>
-    </div>
+                    </p>
+                    <p className="text-sm text-muted">
+                      Richiesta ricevuta il{" "}
+                      {new Intl.DateTimeFormat("it-IT", { dateStyle: "long" }).format(
+                        o.createdAt
+                      )}
+                      : ti contatteremo per il pagamento e per fissare la prima
+                      intervista.
+                    </p>
+                  </div>
+                  <span className="bg-oro/15 px-3 py-1 font-sans text-[0.66rem] uppercase tracking-[0.16em] text-oro">
+                    {o.stato === "richiesta" ? "In lavorazione" : o.stato}
+                  </span>
+                </div>
+              );
+            })}
+          </section>
+        )}
+
+        <EditorCapitolo
+          iniziale={{
+            titolo: capitolo?.titolo ?? "",
+            genere: capitolo?.genere ?? "Autobiografia",
+            testo: capitolo?.testo ?? "",
+          }}
+        />
+
+        {ordini.length === 0 && (
+          <section className="mt-12 border border-orochiara/60 bg-ink px-8 py-10 text-center text-paper">
+            <h2 className="text-balance font-display text-2xl font-medium">
+              Ti piace com&apos;è cominciata?
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-paper/80">
+              Il tuo primo capitolo è solo l&apos;inizio. Scegli la formula più adatta e
+              i nostri ghostwriter trasformeranno la tua storia in un libro vero, stampato
+              e depositato a tuo nome.
+            </p>
+            <Link
+              href="/listino"
+              className="mt-6 inline-block bg-orochiara px-8 py-3 font-sans text-[0.78rem] uppercase tracking-[0.18em] text-ink hover:bg-[#e6cd88]"
+            >
+              Continua il tuo libro — vedi il listino
+            </Link>
+          </section>
+        )}
+      </main>
+      <SiteFooter />
+    </>
   );
 }
