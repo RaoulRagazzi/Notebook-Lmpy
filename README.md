@@ -14,11 +14,29 @@ libro vero, scritto da professionisti.
 - **Studio** (`/studio`, area riservata): il cliente scrive gratis il primo
   capitolo della sua storia — fino a ~6 pagine (4.000 battute) — con anteprima
   impaginata come una pagina di libro.
-- **Listino** (`/listino`): le quattro formule con i prezzi; il cliente
+- **Listino** (`/listino`): le tre formule con i prezzi (Hybrid, Premium Short Book, Personal Branding & Corporate); il cliente
   sceglie la formula e invia la richiesta di conversione (l'ordine compare nel
   suo Studio con stato "in lavorazione").
 
-I prezzi e le formule si aggiornano in un unico file: `src/lib/listino.ts`.
+I prezzi e le formule si aggiornano in un unico file: `src/lib/listino.ts`
+(i testi descrittivi, in tre lingue, sono in `src/lib/i18n.ts`).
+
+## Tre lingue
+
+Il sito è in italiano, tedesco e inglese: il selettore nell'header salva la
+scelta in un cookie e tutte le pagine (vetrina, registrazione, Studio,
+listino) leggono i testi dai dizionari in `src/lib/i18n.ts`.
+
+## Archivio clienti e ghostwriter
+
+- `clienti/` — una cartella per cliente (scheda, capitoli, interviste, bozza).
+  Le istruzioni operative per il ghostwriter Claude sono in `clienti/CLAUDE.md`.
+- `node scripts/esporta-cliente.mjs email@cliente.it` — esporta dal database
+  del sito la scheda e il primo capitolo del cliente nell'archivio.
+- `node scripts/genera-pdf.mjs clienti/<cliente>/bozza/manoscritto.md` —
+  genera il PDF di prova impaginato in A5.
+- Il cliente può scaricare da solo il PDF di prova del suo primo capitolo
+  dall'anteprima nel suo Studio.
 
 ## Stack
 

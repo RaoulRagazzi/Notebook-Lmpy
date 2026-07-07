@@ -10,9 +10,10 @@ type Props = {
   t: Dict["editor"];
   generi: readonly string[];
   locale: string;
+  autore: string;
 };
 
-export default function EditorCapitolo({ iniziale, t, generi, locale }: Props) {
+export default function EditorCapitolo({ iniziale, t, generi, locale, autore }: Props) {
   const [titolo, setTitolo] = useState(iniziale.titolo);
   const [genere, setGenere] = useState(iniziale.genere);
   const [testo, setTesto] = useState(iniziale.testo);
@@ -42,6 +43,75 @@ export default function EditorCapitolo({ iniziale, t, generi, locale }: Props) {
     }
     setSalvato(true);
     setTimeout(() => setSalvato(false), 2500);
+  }
+
+  // Genera il PDF di prova impaginato in formato A5, come una pagina di libro
+  async function generaPdf() {
+    const { jsPDF } = await import("jspdf");
+    const doc = new jsPDF({ unit: "mm", format: "a5" });
+    const LARGH = 148;
+    const MARGINE = 20;
+    const AREA = LARGH - MARGINE * 2;
+    const FONDO = 185;
+
+    // Frontespizio
+    doc.setFont("times", "normal");
+    doc.setFontSize(11);
+    doc.setTextColor(13, 148, 136);
+    doc.text("S P L E N D O R I A", LARGH / 2, 60, { align: "center" });
+    doc.setTextColor(19, 49, 43);
+    doc.setFont("times", "bold");
+    doc.setFontSize(24);
+    const titoloRighe = doc.splitTextToSize(titolo.trim() || t.senzaTitolo, AREA);
+    doc.text(titoloRighe, LARGH / 2, 85, { align: "center" });
+    doc.setFont("times", "italic");
+    doc.setFontSize(13);
+    const yGenere = 85 + titoloRighe.length * 10 + 6;
+    doc.text(genere, LARGH / 2, yGenere, { align: "center" });
+    if (autore) {
+      doc.setFont("times", "normal");
+      doc.setFontSize(12);
+      doc.text(`${t.di} ${autore}`, LARGH / 2, yGenere + 9, { align: "center" });
+    }
+    doc.setFontSize(9);
+    doc.setTextColor(100, 114, 107);
+    doc.text(t.pdfProva, LARGH / 2, 195, { align: "center" });
+
+    // Testo del capitolo
+    doc.addPage();
+    doc.setFont("times", "normal");
+    doc.setFontSize(11.5);
+    doc.setTextColor(39, 51, 47);
+    let y = MARGINE + 4;
+    for (const p of paragrafi) {
+      const righe: string[] = doc.splitTextToSize(p, AREA);
+      for (const riga of righe) {
+        if (y > FONDO) {
+          doc.addPage();
+          y = MARGINE + 4;
+        }
+        doc.text(riga, MARGINE, y);
+        y += 5.4;
+      }
+      y += 3.2; // spazio tra paragrafi
+    }
+
+    // Piè di pagina con numero
+    const totale = doc.getNumberOfPages();
+    for (let i = 2; i <= totale; i++) {
+      doc.setPage(i);
+      doc.setFontSize(9);
+      doc.setTextColor(100, 114, 107);
+      doc.text(String(i - 1), LARGH / 2, 200, { align: "center" });
+      doc.text("Splendoria", MARGINE, 200);
+      doc.text(t.pdfProva, LARGH - MARGINE, 200, { align: "right" });
+    }
+
+    const nomeFile = (titolo.trim() || "capitolo")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    doc.save(`splendoria-${nomeFile || "capitolo"}.pdf`);
   }
 
   return (
@@ -81,11 +151,22 @@ export default function EditorCapitolo({ iniziale, t, generi, locale }: Props) {
             {titolo.trim() || t.senzaTitolo}
           </h3>
           {paragrafi.length > 0 ? (
-            <div className="pagina-libro font-display mx-auto max-w-2xl text-[22px] leading-relaxed text-testo">
-              {paragrafi.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
+            <>
+              <div className="pagina-libro font-display mx-auto max-w-2xl text-[22px] leading-relaxed text-testo">
+                {paragrafi.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <p className="mt-10 text-center">
+                <button
+                  type="button"
+                  onClick={generaPdf}
+                  className="cursor-pointer rounded-full bg-oro px-7 py-3 text-lg font-medium text-white hover:bg-[#0b7c72]"
+                >
+                  {t.pdfBtn}
+                </button>
+              </p>
+            </>
           ) : (
             <p className="text-center text-xl text-muted">{t.vuoto}</p>
           )}

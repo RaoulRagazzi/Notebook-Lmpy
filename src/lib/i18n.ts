@@ -253,6 +253,9 @@ const it = {
     vuoto:
       "Non hai ancora scritto nulla: torna alla scheda «Scrivi» e comincia la tua storia.",
     erroreSalvataggio: "Errore durante il salvataggio.",
+    pdfBtn: "Scarica il PDF di prova",
+    pdfProva: "PDF di prova",
+    di: "di",
   },
   errors: {
     credenziali: "Email o password non corretti.",
@@ -500,6 +503,9 @@ const de: Dict = {
     vuoto:
       "Du hast noch nichts geschrieben: Wechsle zu «Schreiben» und beginn deine Geschichte.",
     erroreSalvataggio: "Fehler beim Speichern.",
+    pdfBtn: "Test-PDF herunterladen",
+    pdfProva: "Test-PDF",
+    di: "von",
   },
   errors: {
     credenziali: "E-Mail oder Passwort falsch.",
@@ -744,6 +750,9 @@ const en: Dict = {
     senzaTitolo: "Untitled",
     vuoto: "You haven't written anything yet: go back to “Write” and begin your story.",
     erroreSalvataggio: "Something went wrong while saving.",
+    pdfBtn: "Download the trial PDF",
+    pdfProva: "Trial PDF",
+    di: "by",
   },
   errors: {
     credenziali: "Incorrect email or password.",

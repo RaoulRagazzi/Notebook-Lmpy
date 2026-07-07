@@ -79,6 +79,7 @@ export default async function StudioPage() {
           t={dict.editor}
           generi={dict.generi}
           locale={locale}
+          autore={session.user.name ?? ""}
         />
 
         {ordini.length === 0 && (
