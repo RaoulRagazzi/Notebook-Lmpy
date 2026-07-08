@@ -2,8 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { prisma } from "@/lib/prisma";
 import { getFormula } from "@/lib/listino";
+import { ordineRichiestaEsistente, createOrdine } from "@/lib/db";
 
 export async function creaOrdine(formulaId: string) {
   const session = await auth();
@@ -12,16 +12,12 @@ export async function creaOrdine(formulaId: string) {
   const formula = getFormula(formulaId);
   if (!formula) redirect("/listino");
 
-  const esistente = await prisma.ordine.findFirst({
-    where: { userId: session.user.id, formula: formula.id, stato: "richiesta" },
-  });
+  const esistente = await ordineRichiestaEsistente(session.user.id, formula.id);
   if (!esistente) {
-    await prisma.ordine.create({
-      data: {
-        userId: session.user.id,
-        formula: formula.id,
-        prezzo: formula.prezzo,
-      },
+    await createOrdine({
+      userId: session.user.id,
+      formula: formula.id,
+      prezzo: formula.prezzo,
     });
   }
 

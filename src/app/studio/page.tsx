@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { prisma } from "@/lib/prisma";
+import { getCapitolo, listOrdini } from "@/lib/db";
 import { getFormula } from "@/lib/listino";
 import { getDict, LOCALE } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
@@ -19,11 +19,8 @@ export default async function StudioPage() {
   const locale = LOCALE[lang];
 
   const [capitolo, ordini] = await Promise.all([
-    prisma.capitolo.findUnique({ where: { userId: session.user.id } }),
-    prisma.ordine.findMany({
-      where: { userId: session.user.id },
-      orderBy: { createdAt: "desc" },
-    }),
+    getCapitolo(session.user.id),
+    listOrdini(session.user.id),
   ]);
 
   return (
@@ -56,7 +53,7 @@ export default async function StudioPage() {
                     <p className="mt-1 text-lg text-muted">
                       {t.richiestaRicevuta}{" "}
                       {new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(
-                        o.createdAt
+                        new Date(o.createdAt)
                       )}
                       {t.richiestaSeguito}
                     </p>

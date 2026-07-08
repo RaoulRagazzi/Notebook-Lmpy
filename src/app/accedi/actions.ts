@@ -3,7 +3,7 @@
 import { randomInt } from "crypto";
 import bcrypt from "bcryptjs";
 import { signIn } from "@/auth";
-import { prisma } from "@/lib/prisma";
+import { getUserByEmail, createUser } from "@/lib/db";
 import { AuthError } from "next-auth";
 import { getDict } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
@@ -56,16 +56,14 @@ export async function registrati(nome: string, email: string) {
     return { ok: false as const, error: errors.datiNonValidi };
   }
 
-  const existing = await prisma.user.findUnique({ where: { email: emailPulita } });
+  const existing = await getUserByEmail(emailPulita);
   if (existing) {
     return { ok: false as const, error: errors.emailEsistente };
   }
 
   const password = generaPassword();
   const passwordHash = await bcrypt.hash(password, 10);
-  await prisma.user.create({
-    data: { nome: nomePulito, email: emailPulita, passwordHash },
-  });
+  await createUser({ nome: nomePulito, email: emailPulita, passwordHash });
 
   const res = await login(emailPulita, password);
   if (!res.ok) return { ok: false as const, error: res.error };

@@ -40,25 +40,43 @@ listino) leggono i testi dai dizionari in `src/lib/i18n.ts`.
 
 ## Stack
 
-Next.js (App Router) · TypeScript · Tailwind CSS 4 · Prisma + SQLite ·
-NextAuth (credenziali).
+Next.js (App Router) · TypeScript · Tailwind CSS 4 · NextAuth (credenziali).
+Database: **Cloudflare D1** in produzione, SQLite su file in locale — un unico
+strato (`src/lib/db.ts`) astrae le due. In produzione l'app gira su
+**Cloudflare Workers** tramite l'adattatore OpenNext.
 
 ## Sviluppo
 
 ```bash
 npm install
-DATABASE_URL="file:./dev.db" npx prisma migrate dev   # prepara il database
 npm run dev
 ```
 
-Apri [http://localhost:3000](http://localhost:3000).
+Apri [http://localhost:3000](http://localhost:3000). In locale il database è
+`dev.db` (SQLite): le tabelle vengono create automaticamente al primo avvio.
 
-Variabili d'ambiente utili (`.env`):
+`.env` utile in locale:
 
 ```
-DATABASE_URL="file:./dev.db"
-AUTH_SECRET="<stringa casuale>"   # obbligatoria in produzione
+AUTH_SECRET="<stringa casuale>"   # una stringa lunga a caso
 ```
+
+## Deploy su Cloudflare
+
+Il database D1 di produzione è `splendoria-db` (già creato, vedi
+`wrangler.jsonc`). Per pubblicare:
+
+```bash
+npx wrangler login                       # una volta, per collegare l'account
+npx wrangler secret put AUTH_SECRET      # incolla una stringa lunga a caso
+npm run deploy                           # build OpenNext + deploy del Worker
+```
+
+Poi in Cloudflare, nel Worker `splendoria`, collega il dominio
+(es. `app.splendoria.vip`) da **Settings → Domains & Routes**.
+
+- `npm run preview` — prova il Worker in locale (con un D1 locale).
+- Le tabelle su D1 vengono create in automatico al primo utilizzo.
 
 ## Prossimi passi suggeriti
 
