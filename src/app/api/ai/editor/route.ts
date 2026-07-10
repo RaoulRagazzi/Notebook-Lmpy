@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
-      model: env.ANTHROPIC_MODEL ?? "claude-3-5-sonnet-latest",
+      model: env.ANTHROPIC_MODEL ?? "claude-sonnet-5",
       max_tokens: maxTokens,
       temperature: input.mode === "proofread" ? 0.2 : 0.7,
       system:
