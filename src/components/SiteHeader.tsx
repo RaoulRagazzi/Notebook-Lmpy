@@ -21,6 +21,9 @@ export default async function SiteHeader() {
           <Link href="/listino" className="text-white/80 hover:text-white">
             {t.listino}
           </Link>
+          <Link href="/#contatti" className="text-white/80 hover:text-white">
+            {t.contattaci}
+          </Link>
           {session?.user ? (
             <>
               <Link

@@ -40,6 +40,20 @@ export type AiUsage = {
   updatedAt: string;
 };
 
+export type ContactMessage = {
+  id: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  subject: string;
+  message: string;
+  lang: string;
+  ipHash: string;
+  deliveryStatus: string;
+  deliveryError: string;
+  createdAt: string;
+};
+
 type Backend = {
   first<T>(sql: string, params?: unknown[]): Promise<T | null>;
   all<T>(sql: string, params?: unknown[]): Promise<T[]>;
@@ -83,6 +97,23 @@ const SCHEMA = [
     PRIMARY KEY ("userId", "date"),
     CONSTRAINT "AiUsage_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE
   )`,
+  `CREATE TABLE IF NOT EXISTS "ContactMessage" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "fullName" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "subject" TEXT NOT NULL,
+    "message" TEXT NOT NULL,
+    "lang" TEXT NOT NULL,
+    "ipHash" TEXT NOT NULL,
+    "deliveryStatus" TEXT NOT NULL DEFAULT 'pending',
+    "deliveryError" TEXT NOT NULL DEFAULT '',
+    "createdAt" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`,
+  `CREATE INDEX IF NOT EXISTS "ContactMessage_ipHash_createdAt_idx"
+    ON "ContactMessage"("ipHash", "createdAt")`,
+  `CREATE INDEX IF NOT EXISTS "ContactMessage_email_createdAt_idx"
+    ON "ContactMessage"("email", "createdAt")`,
 ];
 
 type D1PreparedStatement = {
@@ -234,6 +265,65 @@ export async function incrementAiUsage(userId: string, date: string): Promise<nu
     [userId, date, now]
   );
   return getAiUsage(userId, date);
+}
+
+// ---- Contatti ----
+
+export async function countRecentContactMessages(input: {
+  ipHash: string;
+  email: string;
+  since: string;
+}): Promise<{ byIp: number; byEmail: number }> {
+  const db = await getDb();
+  const [ipRow, emailRow] = await Promise.all([
+    db.first<{ count: number }>(
+      'SELECT COUNT(*) AS "count" FROM "ContactMessage" WHERE "ipHash" = ? AND "createdAt" >= ?',
+      [input.ipHash, input.since]
+    ),
+    db.first<{ count: number }>(
+      'SELECT COUNT(*) AS "count" FROM "ContactMessage" WHERE "email" = ? AND "createdAt" >= ?',
+      [input.email, input.since]
+    ),
+  ]);
+  return { byIp: ipRow?.count ?? 0, byEmail: emailRow?.count ?? 0 };
+}
+
+export async function createContactMessage(
+  input: Omit<ContactMessage, "id" | "deliveryStatus" | "deliveryError" | "createdAt">
+): Promise<string> {
+  const db = await getDb();
+  const id = nuovoId();
+  await db.run(
+    `INSERT INTO "ContactMessage"
+      ("id","fullName","phone","email","subject","message","lang","ipHash","deliveryStatus","deliveryError","createdAt")
+     VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+    [
+      id,
+      input.fullName,
+      input.phone,
+      input.email,
+      input.subject,
+      input.message,
+      input.lang,
+      input.ipHash,
+      "pending",
+      "",
+      new Date().toISOString(),
+    ]
+  );
+  return id;
+}
+
+export async function setContactDelivery(
+  id: string,
+  status: "sent" | "failed",
+  error = ""
+): Promise<void> {
+  const db = await getDb();
+  await db.run(
+    'UPDATE "ContactMessage" SET "deliveryStatus" = ?, "deliveryError" = ? WHERE "id" = ?',
+    [status, error.slice(0, 500), id]
+  );
 }
 
 // ---- Ordini ----

@@ -14,5 +14,12 @@
       "database_name": "splendoria-db",
       "database_id": "1a46b8b0-2e6f-44cf-a22f-4950259f9434"
     }
+  ],
+  "send_email": [
+    {
+      "name": "CONTACT_EMAIL",
+      "destination_address": "raoul.ragazzi@apple.bz",
+      "allowed_sender_addresses": ["contatti@splendoria.vip"]
+    }
   ]
 }
