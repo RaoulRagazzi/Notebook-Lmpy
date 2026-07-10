@@ -12,7 +12,7 @@ libro vero, scritto da professionisti.
   riceve subito le credenziali (la password viene generata automaticamente e
   mostrata a schermo).
 - **Studio** (`/studio`, area riservata): il cliente scrive gratis il primo
-  capitolo della sua storia — fino a ~6 pagine (4.000 battute) — con anteprima
+  capitolo della sua storia — fino a 12.000 battute, spazi inclusi — con anteprima
   impaginata come una pagina di libro.
 - **Listino** (`/listino`): le tre formule con i prezzi (Hybrid, Premium Short Book, Personal Branding & Corporate); il cliente
   sceglie la formula e invia la richiesta di conversione (l'ordine compare nel

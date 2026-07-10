@@ -33,6 +33,13 @@ export type Ordine = {
   createdAt: string;
 };
 
+export type AiUsage = {
+  userId: string;
+  date: string;
+  requests: number;
+  updatedAt: string;
+};
+
 type Backend = {
   first<T>(sql: string, params?: unknown[]): Promise<T | null>;
   all<T>(sql: string, params?: unknown[]): Promise<T[]>;
@@ -67,6 +74,14 @@ const SCHEMA = [
     "stato" TEXT NOT NULL DEFAULT 'richiesta',
     "createdAt" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "Ordine_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS "AiUsage" (
+    "userId" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
+    "requests" INTEGER NOT NULL DEFAULT 0,
+    "updatedAt" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY ("userId", "date"),
+    CONSTRAINT "AiUsage_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE
   )`,
 ];
 
@@ -194,6 +209,31 @@ export async function upsertCapitolo(
        "updatedAt" = excluded."updatedAt"`,
     [nuovoId(), userId, dati.titolo, dati.genere, dati.testo, now, now]
   );
+}
+
+// ---- AI editoriale ----
+
+export async function getAiUsage(userId: string, date: string): Promise<number> {
+  const db = await getDb();
+  const row = await db.first<{ requests: number }>(
+    'SELECT "requests" FROM "AiUsage" WHERE "userId" = ? AND "date" = ?',
+    [userId, date]
+  );
+  return row?.requests ?? 0;
+}
+
+export async function incrementAiUsage(userId: string, date: string): Promise<number> {
+  const db = await getDb();
+  const now = new Date().toISOString();
+  await db.run(
+    `INSERT INTO "AiUsage" ("userId","date","requests","updatedAt")
+     VALUES (?,?,1,?)
+     ON CONFLICT("userId","date") DO UPDATE SET
+       "requests" = "requests" + 1,
+       "updatedAt" = excluded."updatedAt"`,
+    [userId, date, now]
+  );
+  return getAiUsage(userId, date);
 }
 
 // ---- Ordini ----

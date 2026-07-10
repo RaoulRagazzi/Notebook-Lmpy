@@ -21,6 +21,6 @@ export function getFormula(id: string): Formula | undefined {
   return FORMULE.find((f) => f.id === id);
 }
 
-// Il capitolo gratuito: circa 6 pagine (≈ 650 battute a pagina)
+// Il capitolo gratuito: limite editoriale espresso in battute, spazi inclusi.
 export const BATTUTE_PER_PAGINA = 650;
-export const MAX_BATTUTE_CAPITOLO = 4000;
+export const MAX_BATTUTE_CAPITOLO = 12000;
