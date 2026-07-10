@@ -53,7 +53,6 @@ export default async function Home() {
             {t.ctaScopri}
           </Link>
         </div>
-        <p className="mt-16 text-lg text-white/50">{t.luogo}</p>
       </header>
 
       <main>

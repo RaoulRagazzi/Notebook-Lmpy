@@ -40,7 +40,6 @@ const it = {
     sub: "Il servizio di ghostwriting che trasforma la tua storia — o quella di chi ami — in un libro vero, scritto da professionisti.",
     ctaPrimo: "Scrivi il primo capitolo gratis",
     ctaScopri: "Scopri come funziona ›",
-    luogo: "Merano, Italia",
     storiaLabel: "La storia",
     storiaTitolo: "Storie che è un peccato dimenticare.",
     storiaP1:
@@ -290,7 +289,6 @@ const de: Dict = {
     sub: "Der Ghostwriting-Service, der deine Geschichte — oder die eines geliebten Menschen — in ein echtes Buch verwandelt, geschrieben von Profis.",
     ctaPrimo: "Schreib dein erstes Kapitel gratis",
     ctaScopri: "So funktioniert's ›",
-    luogo: "Meran, Italien",
     storiaLabel: "Unsere Geschichte",
     storiaTitolo: "Geschichten, die nicht vergessen werden dürfen.",
     storiaP1:
@@ -538,7 +536,6 @@ const en: Dict = {
     sub: "The ghostwriting service that turns your story — or the story of someone you love — into a real book, written by professionals.",
     ctaPrimo: "Write your first chapter for free",
     ctaScopri: "See how it works ›",
-    luogo: "Merano, Italy",
     storiaLabel: "Our story",
     storiaTitolo: "Stories too precious to be forgotten.",
     storiaP1:
