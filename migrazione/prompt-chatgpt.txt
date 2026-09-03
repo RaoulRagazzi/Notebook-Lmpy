@@ -1,0 +1,63 @@
+PROMPT DA INCOLLARE IN CHATGPT
+(uno per ciascun sito: vinoveritas e copilot.247agent.dev)
+Allega anche il PDF "Migrazione-vinoveritas-copilot.pdf".
+------------------------------------------------------------
+
+Sto trasferendo lo sviluppo di questo progetto a un altro assistente.
+Ti allego il documento di consegna: seguilo alla lettera.
+
+PROGETTO: <vinoveritas  /  copilot.247agent.dev>
+
+Il tuo compito è consegnare il progetto, non migliorarlo. Regole:
+
+1. Rispondi una sezione per volta, nell'ordine A, B, C, D, E, F.
+   Alla fine di ogni sezione fermati e aspetta che io scriva "vai".
+
+2. I file di codice vanno consegnati INTEGRALI, dalla prima all'ultima
+   riga, nella versione che è online adesso. Sono vietati i segnaposto
+   ("... resto invariato ...", "come sopra", riassunti, estratti).
+   Se un file non entra in un messaggio, spezzalo in parti numerate
+   ("worker.js - parte 1 di 3") senza saltare nulla.
+
+3. Prima di ogni file scrivi questa intestazione:
+      FILE: <percorso>
+      RIGHE: <numero totale>
+      PRIMA RIGA: <testo>
+      ULTIMA RIGA: <testo>
+      IN PRODUZIONE: si / no / [DA VERIFICARE]
+
+4. NON riscrivere, non riordinare, non correggere e non abbellire il
+   codice mentre lo consegni. Mi serve com'è oggi, bug inclusi.
+
+5. Scrivi [DA VERIFICARE] su tutto ciò che non ricordi con certezza.
+   Non inventare mai un dettaglio per riempire un vuoto: un dato
+   mancante costa poco, un dato inventato costa moltissimo.
+
+6. Non scrivere MAI valori di chiavi API, token, password o secret:
+   solo i NOMI delle variabili e a cosa servono.
+
+7. Se una domanda non si applica, scrivi "non applicabile" e prosegui.
+   Non saltare nessuna domanda in silenzio.
+
+8. Nella sezione E (problemi noti) sii spietatamente onesto: elenca
+   tutto ciò che non funziona, ciò che ti avevo chiesto e non è mai
+   stato completato, e cosa hai già provato senza successo. Questa è
+   la sezione più importante di tutte.
+
+Comincia dalla Sezione A del documento allegato.
+
+------------------------------------------------------------
+VARIANTE BREVE (se non hai il PDF sottomano)
+
+Consegnami il progetto <nome> per passarlo a un altro sviluppatore.
+Una sezione per volta:
+(A) hosting, dominio e come si pubblica oggi;
+(B) tutti i file di codice integrali, com'è online adesso, senza
+    omissioni e senza migliorie;
+(C) database, bindings e servizi esterni - solo i NOMI delle chiavi,
+    mai i valori;
+(D) cosa deve fare il sito, funzione per funzione, con lo stato reale
+    di ciascuna;
+(E) tutti i bug noti con i passi per riprodurli e cosa hai già provato;
+(F) contenuti, SEO e aspetti legali.
+Marca [DA VERIFICARE] ciò di cui non sei certo.

@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Dossier di migrazione — vinoveritas &amp; copilot.247agent.dev</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+
+  :root{
+    --ink:#1b1b1f;
+    --muted:#5a5f6a;
+    --line:#d8dbe2;
+    --accent:#7a1f2b;
+    --accent-soft:#f6eef0;
+    --box:#f4f5f7;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    font-family:"Charter","Bitstream Charter","DejaVu Serif",Georgia,serif;
+    font-size:10.4pt;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0;
+  }
+
+  h1,h2,h3,h4,.ui{ font-family:"DejaVu Sans",Arial,sans-serif; }
+
+  /* ---------- copertina ---------- */
+  .cover{ page-break-after:always; padding-top:22mm; }
+  .cover .kicker{
+    font-family:"DejaVu Sans",Arial,sans-serif;
+    font-size:8.5pt; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--accent); font-weight:bold;
+  }
+  .cover h1{
+    font-size:27pt; line-height:1.15; margin:6mm 0 4mm; font-weight:bold;
+    letter-spacing:-.01em;
+  }
+  .cover .sub{ font-size:13pt; color:var(--muted); margin:0 0 10mm; }
+  .cover .rule{ height:3px; background:var(--accent); width:38mm; margin:0 0 10mm; }
+  .cover dl{ margin:0; font-size:9.6pt; }
+  .cover dt{
+    font-family:"DejaVu Sans",Arial,sans-serif; font-size:8pt;
+    text-transform:uppercase; letter-spacing:.1em; color:var(--muted);
+    margin-top:5mm;
+  }
+  .cover dd{ margin:1mm 0 0; }
+
+  /* ---------- struttura ---------- */
+  h2{
+    font-size:14pt; margin:9mm 0 3mm; padding-bottom:2mm;
+    border-bottom:2px solid var(--accent); color:var(--accent);
+    page-break-after:avoid;
+  }
+  h2 .num{ color:var(--ink); }
+  h3{
+    font-size:11pt; margin:6mm 0 2mm; page-break-after:avoid;
+  }
+  h4{
+    font-size:9.4pt; margin:4mm 0 1.5mm; text-transform:uppercase;
+    letter-spacing:.07em; color:var(--muted); page-break-after:avoid;
+  }
+  p{ margin:0 0 2.6mm; }
+  .lead{ font-size:11pt; color:var(--muted); }
+  .break{ page-break-before:always; }
+
+  ul,ol{ margin:0 0 3mm; padding-left:6mm; }
+  li{ margin-bottom:1.4mm; }
+
+  /* ---------- elementi ---------- */
+  .box{
+    background:var(--box); border-left:3px solid var(--accent);
+    padding:3.5mm 4mm; margin:4mm 0; page-break-inside:avoid;
+  }
+  .box p:last-child{ margin-bottom:0; }
+  .box .t{
+    font-family:"DejaVu Sans",Arial,sans-serif; font-size:8.6pt; font-weight:bold;
+    text-transform:uppercase; letter-spacing:.08em; margin-bottom:1.5mm;
+  }
+  .warn{ background:var(--accent-soft); border-left-color:var(--accent); }
+
+  table{ width:100%; border-collapse:collapse; margin:3mm 0 4mm; font-size:9.2pt; }
+  th,td{ border:1px solid var(--line); padding:2mm 2.5mm; vertical-align:top; text-align:left; }
+  th{
+    background:var(--box); font-family:"DejaVu Sans",Arial,sans-serif;
+    font-size:8.4pt; text-transform:uppercase; letter-spacing:.06em;
+  }
+  td.q{ width:14mm; font-family:"DejaVu Sans",Arial,sans-serif; font-weight:bold; color:var(--accent); }
+
+  code,.mono{ font-family:"DejaVu Sans Mono",monospace; font-size:8.8pt; background:var(--box); padding:.4mm 1mm; }
+  pre{
+    font-family:"DejaVu Sans Mono",monospace; font-size:8.4pt; line-height:1.42;
+    background:var(--box); border:1px solid var(--line); padding:3mm;
+    white-space:pre-wrap; margin:3mm 0; page-break-inside:avoid;
+  }
+
+  .check li{ list-style:none; margin-left:-4mm; }
+  .check li::before{ content:"\2610"; margin-right:2.5mm; color:var(--accent); }
+
+  .toc{ font-size:10pt; }
+  .toc li{ margin-bottom:1.8mm; }
+  .toc .s{ font-family:"DejaVu Sans",Arial,sans-serif; font-weight:bold; color:var(--accent); }
+
+  .small{ font-size:9pt; color:var(--muted); }
+  .tag{
+    display:inline-block; font-family:"DejaVu Sans",Arial,sans-serif; font-size:7.6pt;
+    text-transform:uppercase; letter-spacing:.07em; background:var(--accent); color:#fff;
+    padding:.6mm 1.8mm; vertical-align:middle;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ COPERTINA ============ -->
+<section class="cover">
+  <div class="kicker">Dossier di consegna · Migrazione tecnica</div>
+  <h1>Tutto quello che serve<br>per riprendere in mano<br>i due siti</h1>
+  <div class="rule"></div>
+  <p class="sub"><strong>vinoveritas</strong> &nbsp;·&nbsp; <strong>copilot.247agent.dev</strong></p>
+
+  <dl>
+    <dt>Documento per</dt>
+    <dd>ChatGPT (assistente uscente) — da consegnare all'inizio della chat</dd>
+    <dt>Preparato da</dt>
+    <dd>Claude Code (assistente entrante)</dd>
+    <dt>Committente</dt>
+    <dd>Raoul Ragazzi</dd>
+    <dt>Data</dt>
+    <dd>3 settembre 2026</dd>
+    <dt>Obiettivo</dt>
+    <dd>Trasferire il progetto senza perdere nulla: codice, dati, configurazioni,
+        decisioni prese e problemi ancora aperti — per poi chiudere il lavoro.</dd>
+  </dl>
+
+  <div class="box" style="margin-top:14mm">
+    <div class="t">Indice</div>
+    <ol class="toc" style="padding-left:5mm">
+      <li><span class="s">Come usare questo documento</span> — 4 passi</li>
+      <li><span class="s">Regole della consegna</span> — come devono essere le risposte</li>
+      <li><span class="s">Sezione A</span> — Anagrafica, hosting e infrastruttura</li>
+      <li><span class="s">Sezione B</span> — Codice sorgente (i file veri)</li>
+      <li><span class="s">Sezione C</span> — Dati, bindings, segreti e servizi esterni</li>
+      <li><span class="s">Sezione D</span> — Cosa deve fare il sito (funzioni e flussi)</li>
+      <li><span class="s">Sezione E</span> — Problemi noti, buchi e regressioni</li>
+      <li><span class="s">Sezione F</span> — Contenuti, brand, SEO e legale</li>
+      <li><span class="s">Sezione G</span> — Definizione di "concluso"</li>
+      <li><span class="s">Sezione H</span> — Formato obbligatorio delle risposte</li>
+      <li><span class="s">Parte 2</span> — Cosa serve a me per pubblicare</li>
+      <li><span class="s">Parte 3</span> — Come procederò dopo aver ricevuto i file</li>
+      <li><span class="s">Allegato A</span> — Prompt pronto da incollare in ChatGPT</li>
+      <li><span class="s">Allegato B</span> — Checklist di consegna</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ COME USARE ============ -->
+<h2><span class="num">1.</span> Come usare questo documento</h2>
+
+<p class="lead">Questo non è un riassunto: è una richiesta di consegna. Serve a farsi
+restituire da ChatGPT tutto il materiale dei due siti in una forma che permetta di
+riprendere il lavoro da dove si è fermato, senza ricostruire nulla a memoria.</p>
+
+<h3>I 4 passi</h3>
+<ol>
+  <li><strong>Apri una chat nuova con ChatGPT</strong> per ciascun sito (una per
+      vinoveritas, una per copilot.247agent.dev). Meglio la chat in cui hai
+      sviluppato quel sito, così ha ancora il contesto: se non esiste più, va bene
+      anche una chat nuova a cui alleghi i file che hai.</li>
+  <li><strong>Incolla il prompt dell'Allegato A</strong> (ultima pagina) e allega
+      questo PDF. Chiedi di rispondere <em>una sezione per volta</em>: A, poi B,
+      poi C… Non tutto insieme, altrimenti taglia.</li>
+  <li><strong>Salva ogni risposta</strong> in un file di testo o markdown. Un file
+      per sezione va benissimo. Se ChatGPT spezza un file di codice in più parti,
+      tienile in ordine e non modificarle.</li>
+  <li><strong>Passami il materiale.</strong> Allegami i file in chat, oppure
+      caricali nel repository GitHub: li leggo, ti dico file per file cosa va e
+      cosa no, correggo e pubblichiamo <code>index.html</code> e
+      <code>worker.js</code> nuovi.</li>
+</ol>
+
+<div class="box warn">
+  <div class="t">Regola di sicurezza — leggila prima di tutto</div>
+  <p>In questo scambio non devono comparire <strong>valori</strong> di chiavi API,
+  password, token o secret: solo i <strong>nomi</strong> delle variabili
+  (es. <code>OPENAI_API_KEY</code>) e a cosa servono. Le chiavi si reinseriscono
+  dopo, direttamente su Cloudflare, dove nessuna chat le vede.</p>
+  <p>Se in passato hai incollato chiavi vere dentro una chat o dentro
+  <code>index.html</code>/<code>worker.js</code>, <strong>rigenerale</strong>
+  (revoca la vecchia, crea la nuova) prima di andare online: è la prima cosa che
+  verificherò nel codice che mi mandi.</p>
+</div>
+
+<h3>Se ChatGPT dice che non ricorda</h3>
+<p>È normale e non è un problema: quello che conta davvero sono i <strong>file
+attualmente online</strong> (Sezione B) e l'elenco dei <strong>problemi
+aperti</strong> (Sezione E). Il resto si ricostruisce leggendo il codice. Dove non
+ricorda, deve scrivere <code>[DA VERIFICARE]</code> — mai inventare: un dettaglio
+inventato costa più tempo di un dettaglio mancante.</p>
+
+<h3>Se preferisci saltare ChatGPT</h3>
+<p>Puoi anche scaricare i file direttamente dalla dashboard Cloudflare
+(<em>Workers &amp; Pages → il tuo Worker → Edit code</em>, oppure
+<em>Deployments → il deploy attivo</em>) e mandarmi quelli: sono la verità di cosa
+c'è online adesso. In quel caso rispondi tu, a voce tua, alle sole Sezioni E
+(problemi) e G (cosa vuol dire "finito"); a tutto il resto arrivo leggendo il
+codice.</p>
+
+<!-- ============ REGOLE ============ -->
+<h2><span class="num">2.</span> Regole della consegna</h2>
+<p>Da comunicare a ChatGPT insieme al documento. Sono le regole che rendono il
+materiale utilizzabile invece che decorativo.</p>
+
+<table>
+  <tr><th style="width:26mm">Regola</th><th>Cosa significa in pratica</th></tr>
+  <tr><td><strong>File interi</strong></td>
+      <td>Ogni file va incollato dalla prima all'ultima riga. Vietati i segnaposto
+      tipo <code>// … resto invariato …</code>, <code>/* come prima */</code>,
+      riassunti o estratti. Un file consegnato a metà è un file da riscrivere.</td></tr>
+  <tr><td><strong>Nessun "miglioramento"</strong></td>
+      <td>Il codice va consegnato <em>com'è online oggi</em>, bug compresi. Non
+      va rifattorizzato, riordinato, rinominato o abbellito durante la consegna:
+      alle correzioni ci penso io, ma devo partire dallo stato reale.</td></tr>
+  <tr><td><strong>Una sezione per volta</strong></td>
+      <td>Risposte lunghe vengono troncate. Si procede A → B → C → … aspettando
+      un "vai" fra una sezione e l'altra.</td></tr>
+  <tr><td><strong>File lunghi spezzati</strong></td>
+      <td>Se un file non entra in un messaggio: <code>worker.js — parte 1 di 3</code>,
+      <code>parte 2 di 3</code>… senza saltare righe e senza sovrapposizioni.</td></tr>
+  <tr><td><strong>Intestazione di verifica</strong></td>
+      <td>Prima di ogni file: percorso completo, numero totale di righe, testo
+      della prima riga e dell'ultima. Così controllo che sia arrivato tutto.</td></tr>
+  <tr><td><strong>Niente segreti</strong></td>
+      <td>Solo i nomi delle variabili d'ambiente. Mai i valori.</td></tr>
+  <tr><td><strong>Dubbi marcati</strong></td>
+      <td><code>[DA VERIFICARE]</code> su tutto ciò che non è certo, invece di
+      colmare il vuoto con una supposizione plausibile.</td></tr>
+  <tr><td><strong>Non applicabile</strong></td>
+      <td>Se una domanda non riguarda il progetto: "non applicabile" e si prosegue.
+      Nessuna domanda va saltata in silenzio.</td></tr>
+</table>
+
+<!-- ============ SEZIONE A ============ -->
+<h2 class="break"><span class="num">3.</span> Sezione A — Anagrafica, hosting e infrastruttura</h2>
+<p class="small">Da compilare <strong>separatamente per ciascuno dei due siti</strong>.</p>
+
+<table>
+  <tr><th style="width:14mm">Rif.</th><th>Domanda</th></tr>
+  <tr><td class="q">A1</td><td><strong>Identità.</strong> Nome del progetto, dominio di produzione esatto, eventuali domini di staging/anteprima, a cosa serve il sito in cinque righe, chi sono gli utenti.</td></tr>
+  <tr><td class="q">A2</td><td><strong>Piattaforma.</strong> Cloudflare Workers, Cloudflare Pages, o altro? Nome esatto del Worker/Progetto, ID account, zona/dominio collegato, ambienti configurati (production, preview, staging).</td></tr>
+  <tr><td class="q">A3</td><td><strong>Deploy attuale.</strong> Come va online una modifica, oggi, passo per passo: si incolla il codice nell'editor della dashboard Cloudflare? Si usa <code>wrangler deploy</code>? C'è una build automatica da GitHub? Chi preme il bottone e da dove.</td></tr>
+  <tr><td class="q">A4</td><td><strong>Repository.</strong> Esiste un repo Git? URL, branch di produzione, chi ha accesso. Se non esiste: dove si trova la copia "buona" e aggiornata dei file (cartella locale, Drive, allegati in chat, solo dashboard Cloudflare?).</td></tr>
+  <tr><td class="q">A5</td><td><strong>Domini e DNS.</strong> Route e custom domain configurati sul Worker; chi gestisce il DNS del dominio (Cloudflare stesso? un altro registrar?); redirect apex/www; certificato HTTPS; eventuali sottodomini.</td></tr>
+  <tr><td class="q">A6</td><td><strong>Albero dei file.</strong> Elenco completo di tutti i file del progetto con percorso e ruolo di ciascuno: <code>index.html</code>, <code>worker.js</code>, CSS, JS aggiuntivi, <code>wrangler.toml</code>/<code>wrangler.jsonc</code>, <code>package.json</code>, <code>_headers</code>, <code>_redirects</code>, <code>robots.txt</code>, <code>sitemap.xml</code>, favicon, immagini, font.</td></tr>
+  <tr><td class="q">A7</td><td><strong>Runtime e vincoli.</strong> <code>compatibility_date</code> e <code>compatibility_flags</code> (è attivo <code>nodejs_compat</code>?), librerie esterne usate e da dove arrivano (CDN? bundle? import da npm?), limiti già incontrati (tempo CPU, dimensione del bundle, sub-request).</td></tr>
+  <tr><td class="q">A8</td><td><strong>Relazione fra i due siti.</strong> vinoveritas e copilot.247agent.dev condividono qualcosa — codice, database, API, account, utenti? Uno chiama l'altro?</td></tr>
+</table>
+
+<!-- ============ SEZIONE B ============ -->
+<h2><span class="num">4.</span> Sezione B — Codice sorgente</h2>
+<p>È la sezione più importante insieme alla E. Qui serve il codice, non la sua descrizione.</p>
+
+<table>
+  <tr><th style="width:14mm">Rif.</th><th>Domanda</th></tr>
+  <tr><td class="q">B1</td><td><strong><code>index.html</code> integrale</strong> — la versione realmente online adesso, dall'apertura <code>&lt;!doctype html&gt;</code> alla chiusura <code>&lt;/html&gt;</code>, CSS e JavaScript inline compresi.</td></tr>
+  <tr><td class="q">B2</td><td><strong><code>worker.js</code> integrale</strong> — idem: import iniziali, <code>export default { fetch… }</code> o <code>addEventListener</code>, tutte le funzioni di supporto, fino all'ultima riga.</td></tr>
+  <tr><td class="q">B3</td><td><strong>Tutti gli altri file</strong> elencati in A6, uno per uno, integrali: CSS, JS, HTML secondari, file di configurazione, JSON di dati.</td></tr>
+  <tr><td class="q">B4</td><td><strong>Corrispondenza con la produzione.</strong> Per ciascun file: la versione consegnata è esattamente quella online? Se non lo è (o non è certo), dirlo esplicitamente e indicare in cosa potrebbe differire.</td></tr>
+  <tr><td class="q">B5</td><td><strong>Codice non attivo.</strong> Funzioni scritte e mai collegate, blocchi commentati che vanno tenuti, <code>TODO</code>/<code>FIXME</code>, versioni alternative rimaste nel file: segnalarli, così non li tratto come spazzatura né come codice vivo.</td></tr>
+  <tr><td class="q">B6</td><td><strong>Cronologia.</strong> Le ultime 5–10 modifiche fatte al progetto, in ordine, con cosa dovevano ottenere e se hanno funzionato.</td></tr>
+</table>
+
+<pre>Intestazione richiesta prima di ogni file:
+
+  FILE: worker.js
+  RIGHE: 412
+  PRIMA RIGA:  export default {
+  ULTIMA RIGA: };
+  IN PRODUZIONE: sì  /  no  /  [DA VERIFICARE]
+  --------------------------------------------------
+  &lt;contenuto integrale&gt;</pre>
+
+<!-- ============ SEZIONE C ============ -->
+<h2 class="break"><span class="num">5.</span> Sezione C — Dati, bindings, segreti e servizi esterni</h2>
+
+<table>
+  <tr><th style="width:14mm">Rif.</th><th>Domanda</th></tr>
+  <tr><td class="q">C1</td><td><strong>Bindings Cloudflare in uso.</strong> Per ognuno: tipo, nome della risorsa, nome del binding usato nel codice (<code>env.QUALCOSA</code>) e a cosa serve. Da coprire: <em>KV</em> (namespace, formato delle chiavi, esempio di valore), <em>D1</em>, <em>R2</em> (bucket, tipo di file), <em>Durable Objects</em>, <em>Queues</em>, <em>Workers AI</em>, <em>Vectorize</em>, <em>Email/send_email</em>, <em>Service bindings</em>, <em>Cron Triggers</em>.</td></tr>
+  <tr><td class="q">C2</td><td><strong>Database.</strong> DDL completo: <code>CREATE TABLE</code> e <code>CREATE INDEX</code> di ogni tabella, con tipi e vincoli. Più 2–3 righe di esempio <strong>anonimizzate</strong> per tabella, per capire il formato reale dei dati.</td></tr>
+  <tr><td class="q">C3</td><td><strong>Variabili d'ambiente e secret.</strong> Tabella: <em>nome</em> · <em>a cosa serve</em> · <em>dove si ottiene il valore</em> · <em>è già configurato su Cloudflare?</em> — <strong>senza i valori</strong>.</td></tr>
+  <tr><td class="q">C4</td><td><strong>Servizi di terze parti.</strong> Per ciascuno (LLM, pagamenti, email, analytics, CRM, captcha, mappe, webhook…): quale servizio, quale endpoint viene chiamato, con che metodo, che corpo si manda, che risposta si aspetta, come sono gestiti errori e limiti di frequenza, su quale piano/costo.</td></tr>
+  <tr><td class="q">C5</td><td><strong>Dati di produzione da preservare.</strong> Ci sono già utenti, ordini, contenuti, iscrizioni? Quanti record, in quali tabelle/namespace, esiste un export o un backup? Si possono perdere o no?</td></tr>
+  <tr><td class="q">C6</td><td><strong>Autenticazione tecnica.</strong> Come il Worker si autentica verso i servizi esterni (header, firma, OAuth), e come verifica le chiamate in entrata (token, CORS, origini ammesse, rate limit).</td></tr>
+</table>
+
+<!-- ============ SEZIONE D ============ -->
+<h2><span class="num">6.</span> Sezione D — Cosa deve fare il sito</h2>
+<p>Il codice dice cosa <em>fa</em>. Questa sezione dice cosa <em>dovrebbe</em> fare: è
+la differenza fra le due che genera i "buchi".</p>
+
+<table>
+  <tr><th style="width:14mm">Rif.</th><th>Domanda</th></tr>
+  <tr><td class="q">D1</td><td><strong>Elenco funzionalità</strong> numerato. Per ciascuna: nome, cosa fa, chi la usa, e stato onesto — <em>funziona</em> / <em>funziona a metà</em> / <em>rotta</em> / <em>mai iniziata</em>.</td></tr>
+  <tr><td class="q">D2</td><td><strong>Flussi utente</strong> passo per passo, dal primo clic al risultato finale, per ogni percorso principale (es. visita → form → conferma → email; oppure login → area riservata → azione).</td></tr>
+  <tr><td class="q">D3</td><td><strong>Rotte del Worker.</strong> Per ognuna: metodo, percorso, parametri accettati, esempio di richiesta, esempio di risposta corretta, esempi di risposta d'errore, chi ha il diritto di chiamarla.</td></tr>
+  <tr><td class="q">D4</td><td><strong>Accessi e ruoli.</strong> Esiste un login? Dove vivono sessioni/cookie/token, quanto durano, quali ruoli esistono e chi vede cosa. Esiste un'area di amministrazione?</td></tr>
+  <tr><td class="q">D5</td><td><strong>Regole non scritte.</strong> Prezzi, limiti, testi obbligatori, condizioni, comportamenti dati per scontati nelle conversazioni ma mai finiti nel codice o nella documentazione.</td></tr>
+  <tr><td class="q">D6</td><td><strong>Requisiti trasversali.</strong> Lingue supportate, comportamento su mobile, browser da supportare, accessibilità, prestazioni attese, gestione degli stati di caricamento e di errore lato utente.</td></tr>
+</table>
+
+<!-- ============ SEZIONE E ============ -->
+<h2><span class="num">7.</span> Sezione E — Problemi noti, buchi e regressioni</h2>
+<div class="box">
+  <div class="t">La sezione decisiva</div>
+  <p>È il motivo della migrazione. Va compilata con precisione clinica: senza
+  giustificazioni, senza attenuazioni, senza "dovrebbe funzionare". Serve
+  l'elenco di ciò che non va, come si riproduce e cosa è già stato tentato.</p>
+</div>
+
+<table>
+  <tr><th style="width:14mm">Rif.</th><th>Domanda</th></tr>
+  <tr><td class="q">E1</td><td><strong>Tabella dei bug.</strong> Una riga per problema, con le colonne: <em>sintomo osservato</em> · <em>pagina o funzione</em> · <em>passi esatti per riprodurlo</em> · <em>da quando</em> · <em>frequenza (sempre / a volte / una volta)</em> · <em>errore visibile in console o nei log</em>.</td></tr>
+  <tr><td class="q">E2</td><td><strong>Buchi.</strong> Cose richieste e mai completate: cosa era stato chiesto, cosa è stato consegnato al posto suo, cosa manca ancora.</td></tr>
+  <tr><td class="q">E3</td><td><strong>Regressioni.</strong> Funzionalità che prima funzionavano e si sono rotte: quale modifica le ha rotte e in che occasione.</td></tr>
+  <tr><td class="q">E4</td><td><strong>Tentativi già fatti.</strong> Per ogni bug importante: cosa è stato provato per risolverlo e perché non ha funzionato. Serve a non ripetere gli stessi tentativi.</td></tr>
+  <tr><td class="q">E5</td><td><strong>Zone fragili.</strong> Parti riscritte molte volte, punti di cui non ci si fida, codice che "si rompe se lo tocchi".</td></tr>
+  <tr><td class="q">E6</td><td><strong>Log ed errori reali.</strong> Copia-incolla degli errori dalla console del browser (F12 → Console e Network) e dai log di Cloudflare (<em>Workers &amp; Pages → Worker → Logs</em>, oppure <code>wrangler tail</code>). Anche solo screenshot descritti a parole vanno bene.</td></tr>
+  <tr><td class="q">E7</td><td><strong>Differenze fra ambienti.</strong> Qualcosa funziona in locale/anteprima ma non in produzione (o viceversa)? Cosa, e da quando.</td></tr>
+</table>
+
+<!-- ============ SEZIONE F ============ -->
+<h2 class="break"><span class="num">8.</span> Sezione F — Contenuti, brand, SEO e legale</h2>
+
+<table>
+  <tr><th style="width:14mm">Rif.</th><th>Domanda</th></tr>
+  <tr><td class="q">F1</td><td><strong>Testi.</strong> I testi attualmente online sono definitivi o provvisori? Esiste una versione approvata altrove? In quali lingue.</td></tr>
+  <tr><td class="q">F2</td><td><strong>Immagini, logo, font.</strong> Quali file, dove sono ospitati (R2, CDN esterna, base64 dentro l'HTML?), con quali licenze d'uso.</td></tr>
+  <tr><td class="q">F3</td><td><strong>Identità visiva.</strong> Palette colori, caratteri, spaziature, riferimenti da rispettare; cosa non va toccato per nessun motivo.</td></tr>
+  <tr><td class="q">F4</td><td><strong>SEO.</strong> <code>&lt;title&gt;</code> e meta description per pagina, immagine Open Graph, <code>robots.txt</code>, <code>sitemap.xml</code>, dati strutturati, proprietà verificata su Google Search Console.</td></tr>
+  <tr><td class="q">F5</td><td><strong>Analytics e tracciamento.</strong> Cosa è installato (Google Analytics, Cloudflare Web Analytics, Meta Pixel…), con quale ID, e se ci sono conversioni o eventi configurati.</td></tr>
+  <tr><td class="q">F6</td><td><strong>Legale.</strong> Privacy policy, cookie banner, consenso GDPR, dati personali raccolti dai form, dove vengono salvati e per quanto tempo, chi è il titolare del trattamento.</td></tr>
+</table>
+
+<!-- ============ SEZIONE G ============ -->
+<h2><span class="num">9.</span> Sezione G — Definizione di "concluso"</h2>
+<p>Questa sezione la scrive Raoul, non ChatGPT: è il criterio con cui misureremo la
+fine del lavoro.</p>
+
+<table>
+  <tr><th style="width:14mm">Rif.</th><th>Domanda</th></tr>
+  <tr><td class="q">G1</td><td><strong>Condizioni di completamento.</strong> Per ciascun sito, l'elenco delle cose che devono essere vere perché il sito si possa dichiarare finito. Frasi verificabili: "il form di contatto invia l'email e mostra la conferma", non "il sito funziona bene".</td></tr>
+  <tr><td class="q">G2</td><td><strong>Priorità.</strong> Cosa serve subito, cosa può attendere, cosa si può tagliare se costa troppo.</td></tr>
+  <tr><td class="q">G3</td><td><strong>Scadenze.</strong> Date, impegni presi con clienti o terzi, eventi legati alla pubblicazione.</td></tr>
+  <tr><td class="q">G4</td><td><strong>Uso reale.</strong> I siti sono già usati da qualcuno adesso? Se sì, quali interruzioni sono tollerabili durante la migrazione e in quali fasce orarie.</td></tr>
+  <tr><td class="q">G5</td><td><strong>Budget tecnico.</strong> Vincoli di costo sui servizi esterni (piano Cloudflare, crediti API, limiti mensili) da rispettare nelle soluzioni che proporrò.</td></tr>
+</table>
+
+<!-- ============ SEZIONE H ============ -->
+<h2><span class="num">10.</span> Sezione H — Formato obbligatorio delle risposte</h2>
+<p class="small">Istruzioni operative per ChatGPT. Riepilogano le regole del capitolo 2.</p>
+<ol>
+  <li>Rispondi <strong>una sezione per volta</strong>, in ordine (A, B, C, D, E, F), e fermati aspettando "vai".</li>
+  <li>I file di codice si consegnano <strong>integrali</strong>, con l'intestazione di verifica (percorso, righe totali, prima e ultima riga).</li>
+  <li>Nessun segnaposto, nessun riassunto, nessuna omissione: se non entra in un messaggio, si spezza in parti numerate.</li>
+  <li>Non riscrivere, non riordinare, non correggere il codice mentre lo consegni.</li>
+  <li>Marca <code>[DA VERIFICARE]</code> tutto ciò che non è certo. Non colmare i vuoti con ipotesi.</li>
+  <li>Mai valori di chiavi, token o password: solo i nomi delle variabili.</li>
+  <li>Se una domanda non si applica: "non applicabile", e avanti. Nessuna domanda saltata in silenzio.</li>
+  <li>Se possibile, alla fine raccogli tutto in <strong>un unico file <code>.md</code></strong> scaricabile, con una intestazione per sezione.</li>
+</ol>
+
+<!-- ============ PARTE 2 ============ -->
+<h2 class="break"><span class="num">11.</span> Parte 2 — Cosa serve a me per pubblicare</h2>
+<p>Questa parte riguarda te e me, non ChatGPT. Sono le condizioni pratiche perché io
+possa non solo correggere i file, ma anche metterli online.</p>
+
+<h3>Per lavorare sul codice — basta uno di questi</h3>
+<ul>
+  <li><strong>Repository GitHub</strong> (consigliato): carichi lì i file dei due
+      siti e io lavoro direttamente sul repo, con la cronologia delle modifiche.
+      Ogni versione resta recuperabile: se una modifica peggiora le cose, si torna
+      indietro in un istante.</li>
+  <li><strong>Allegati in chat</strong>: mi passi i file qui, li leggo, ti restituisco
+      le versioni corrette da incollare tu. Funziona, ma senza cronologia.</li>
+</ul>
+
+<h3>Per pubblicare su Cloudflare — scegli tu</h3>
+<table>
+  <tr><th style="width:34mm">Modalità</th><th>Cosa serve</th><th style="width:38mm">Nota</th></tr>
+  <tr>
+    <td><strong>Pubblico io</strong></td>
+    <td>Un <em>API token</em> Cloudflare con i permessi: <code>Workers Scripts: Edit</code>,
+        <code>Workers KV Storage: Edit</code>, <code>D1: Edit</code>,
+        <code>Account Settings: Read</code>, più <code>Zone: DNS: Edit</code> solo se
+        dobbiamo toccare i domini. Serve anche l'<em>Account ID</em>.</td>
+    <td>Più veloce e verificabile: pubblico e controllo subito il risultato dal vivo.</td>
+  </tr>
+  <tr>
+    <td><strong>Pubblichi tu</strong></td>
+    <td>Nessun accesso. Ti consegno <code>index.html</code> e <code>worker.js</code>
+        finiti e le istruzioni esatte, tu li incolli nella dashboard.</td>
+    <td>Nessuna credenziale in giro, ma ogni giro di prova passa da te.</td>
+  </tr>
+</table>
+
+<div class="box warn">
+  <div class="t">Se scegli di darmi il token</div>
+  <p>Crea un token <strong>nuovo e dedicato</strong> a questo lavoro (non riusare uno
+  esistente), con i soli permessi elencati e, se possibile, una scadenza. A lavoro
+  finito lo revochi da <em>My Profile → API Tokens</em>. Non passarlo dentro un file
+  che finisce nel repository.</p>
+</div>
+
+<h3>Informazioni minime che mi servono comunque</h3>
+<ul class="check">
+  <li>I due domini esatti e quale Worker serve quale dominio.</li>
+  <li>I file attualmente online (Sezione B) — anche presi dalla dashboard Cloudflare.</li>
+  <li>L'elenco dei problemi (Sezione E), anche solo a voce tua, senza formalità.</li>
+  <li>Cosa significa "finito" per te (Sezione G1), sito per sito.</li>
+  <li>Se ci sono dati di produzione da non perdere (Sezione C5).</li>
+</ul>
+
+<!-- ============ PARTE 3 ============ -->
+<h2><span class="num">12.</span> Parte 3 — Come procederò</h2>
+<ol>
+  <li><strong>Audit.</strong> Leggo tutto il materiale e ti do un referto chiaro, file
+      per file: cosa è sano, cosa è rotto, cosa è pericoloso (chiavi esposte, dati
+      non protetti), cosa manca del tutto. Senza addolcire il giudizio.</li>
+  <li><strong>Piano.</strong> Elenco di interventi ordinati per priorità, con una stima
+      di quanto pesa ciascuno. Lo approvi tu prima che io tocchi qualcosa.</li>
+  <li><strong>Correzione.</strong> Riscrivo o riparo <code>index.html</code> e
+      <code>worker.js</code> (e gli altri file), un intervento per volta, spiegando
+      cosa cambia e perché.</li>
+  <li><strong>Verifica.</strong> Provo davvero: rotte, form, integrazioni esterne,
+      comportamento su mobile, casi d'errore. Se qualcosa non funziona te lo dico,
+      non lo nascondo.</li>
+  <li><strong>Pubblicazione.</strong> Andiamo online e controlliamo il sito dal vivo,
+      con la possibilità di tornare indietro se qualcosa non va.</li>
+  <li><strong>Documentazione.</strong> Lascio nel repository un <code>README</code>
+      che spiega com'è fatto il sito, come si pubblica e dove si mettono le mani.
+      Così il progetto non dipende più dalla memoria di una chat — né della mia.</li>
+</ol>
+
+<!-- ============ ALLEGATO A ============ -->
+<h2 class="break"><span class="num">13.</span> Allegato A — Prompt da incollare in ChatGPT</h2>
+<p class="small">Copia il testo qui sotto, sostituisci il nome del sito, allega questo PDF e invia.</p>
+
+<pre>Sto trasferendo lo sviluppo di questo progetto a un altro assistente.
+Ti allego il documento di consegna: seguilo alla lettera.
+
+PROGETTO: &lt;vinoveritas  /  copilot.247agent.dev&gt;
+
+Il tuo compito è consegnare il progetto, non migliorarlo. Regole:
+
+1. Rispondi una sezione per volta, nell'ordine A, B, C, D, E, F.
+   Alla fine di ogni sezione fermati e aspetta che io scriva "vai".
+
+2. I file di codice vanno consegnati INTEGRALI, dalla prima all'ultima
+   riga, nella versione che è online adesso. Sono vietati i segnaposto
+   ("... resto invariato ...", "come sopra", riassunti, estratti).
+   Se un file non entra in un messaggio, spezzalo in parti numerate
+   ("worker.js - parte 1 di 3") senza saltare nulla.
+
+3. Prima di ogni file scrivi questa intestazione:
+      FILE: &lt;percorso&gt;
+      RIGHE: &lt;numero totale&gt;
+      PRIMA RIGA: &lt;testo&gt;
+      ULTIMA RIGA: &lt;testo&gt;
+      IN PRODUZIONE: si / no / [DA VERIFICARE]
+
+4. NON riscrivere, non riordinare, non correggere e non abbellire il
+   codice mentre lo consegni. Mi serve com'e' oggi, bug inclusi.
+
+5. Scrivi [DA VERIFICARE] su tutto cio' che non ricordi con certezza.
+   Non inventare mai un dettaglio per riempire un vuoto: un dato
+   mancante costa poco, un dato inventato costa moltissimo.
+
+6. Non scrivere MAI valori di chiavi API, token, password o secret:
+   solo i NOMI delle variabili e a cosa servono.
+
+7. Se una domanda non si applica, scrivi "non applicabile" e prosegui.
+   Non saltare nessuna domanda in silenzio.
+
+8. Nella sezione E (problemi noti) sii spietatamente onesto: elenca
+   tutto cio' che non funziona, cio' che ti avevo chiesto e non e' mai
+   stato completato, e cosa hai gia' provato senza successo. Questa e'
+   la sezione piu' importante di tutte.
+
+Comincia dalla Sezione A del documento allegato.</pre>
+
+<div class="box">
+  <div class="t">Variante breve — se non hai il PDF sottomano</div>
+  <p>«Consegnami il progetto <em>&lt;nome&gt;</em> per passarlo a un altro
+  sviluppatore. Una sezione per volta: <strong>(A)</strong> hosting, dominio e come
+  si pubblica oggi; <strong>(B)</strong> tutti i file di codice integrali, com'è
+  online adesso, senza omissioni e senza migliorie; <strong>(C)</strong> database,
+  bindings e servizi esterni — solo i nomi delle chiavi, mai i valori;
+  <strong>(D)</strong> cosa deve fare il sito, funzione per funzione, con lo stato
+  reale di ciascuna; <strong>(E)</strong> tutti i bug noti con i passi per
+  riprodurli e cosa hai già provato; <strong>(F)</strong> contenuti, SEO e aspetti
+  legali. Marca <code>[DA VERIFICARE]</code> ciò di cui non sei certo.»</p>
+</div>
+
+<!-- ============ ALLEGATO B ============ -->
+<h2><span class="num">14.</span> Allegato B — Checklist di consegna</h2>
+<p>Da spuntare per <strong>ciascuno</strong> dei due siti. Quando le voci in grassetto
+sono tutte spuntate, posso già cominciare: il resto si può recuperare strada facendo.</p>
+
+<h4>Codice</h4>
+<ul class="check">
+  <li><strong><code>index.html</code> ricevuto integrale</strong> (verificata l'ultima riga)</li>
+  <li><strong><code>worker.js</code> ricevuto integrale</strong> (verificata l'ultima riga)</li>
+  <li>Tutti gli altri file elencati e ricevuti</li>
+  <li><code>wrangler.toml</code> / <code>wrangler.jsonc</code> ricevuto</li>
+  <li>Confermato che i file corrispondono a ciò che è online</li>
+</ul>
+
+<h4>Infrastruttura</h4>
+<ul class="check">
+  <li><strong>Dominio e nome del Worker confermati</strong></li>
+  <li>Modalità di deploy attuale descritta</li>
+  <li>Bindings elencati (KV, D1, R2, AI, Email…)</li>
+  <li>Schema del database ricevuto</li>
+  <li>Nomi delle variabili d'ambiente ricevuti — <strong>senza valori</strong></li>
+</ul>
+
+<h4>Comportamento</h4>
+<ul class="check">
+  <li>Elenco delle funzionalità con lo stato reale di ciascuna</li>
+  <li>Rotte del Worker documentate</li>
+  <li><strong>Elenco dei bug con i passi per riprodurli</strong></li>
+  <li>Tentativi di correzione già fatti</li>
+  <li>Errori reali da console e log</li>
+</ul>
+
+<h4>Decisioni tue</h4>
+<ul class="check">
+  <li><strong>Definizione di "concluso" scritta, sito per sito</strong></li>
+  <li>Priorità stabilite</li>
+  <li>Scelto chi pubblica (io con token / tu dalla dashboard)</li>
+  <li>Chiavi eventualmente esposte nelle vecchie chat: <strong>rigenerate</strong></li>
+</ul>
+
+<div class="box" style="margin-top:8mm">
+  <div class="t">In sintesi</div>
+  <p>Se ottieni solo due cose da ChatGPT, che siano <strong>i file integrali</strong>
+  (Sezione B) e <strong>l'elenco onesto di ciò che non funziona</strong> (Sezione E).
+  Con quelle due parto; tutto il resto lo ricostruisco leggendo il codice e
+  chiedendo a te.</p>
+</div>
+
+</body>
+</html>
